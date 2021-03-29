@@ -6,6 +6,7 @@ const isShopify = commerce.provider === 'shopify'
 
 module.exports = withCommerceConfig({
   commerce,
+  target: 'serverless',
   i18n: {
     locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
