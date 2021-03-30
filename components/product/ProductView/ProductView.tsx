@@ -1,55 +1,55 @@
-import cn from 'classnames'
-import Image from 'next/image'
-import { NextSeo } from 'next-seo'
-import { FC, useState } from 'react'
-import s from './ProductView.module.css'
+import cn from "classnames";
+import Image from "next/image";
+import { NextSeo } from "next-seo";
+import { FC, useState } from "react";
+import s from "./ProductView.module.css";
 
-import { Swatch, ProductSlider } from '@components/product'
-import { Button, Container, Text, useUI } from '@components/ui'
+import { Swatch, ProductSlider } from "@components/product";
+import { Button, Container, Text, useUI } from "@components/ui";
 
-import type { Product } from '@commerce/types'
-import usePrice from '@framework/product/use-price'
-import { useAddItem } from '@framework/cart'
+import type { Product } from "@commerce/types";
+import usePrice from "@framework/product/use-price";
+import { useAddItem } from "@framework/cart";
 
-import { getVariant, SelectedOptions } from '../helpers'
-import WishlistButton from '@components/wishlist/WishlistButton'
+import { getVariant, SelectedOptions } from "../helpers";
+import WishlistButton from "@components/wishlist/WishlistButton";
 
 interface Props {
-  className?: string
-  children?: any
-  product: Product
+  className?: string;
+  children?: any;
+  product: Product;
 }
 
 const ProductView: FC<Props> = ({ product }) => {
-  const addItem = useAddItem()
+  const addItem = useAddItem();
   const { price } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
-  })
-  const { openSidebar } = useUI()
-  const [loading, setLoading] = useState(false)
+  });
+  const { openSidebar } = useUI();
+  const [loading, setLoading] = useState(false);
   const [choices, setChoices] = useState<SelectedOptions>({
     size: null,
     color: null,
-  })
+  });
 
   // Select the correct variant based on choices
-  const variant = getVariant(product, choices)
+  const variant = getVariant(product, choices);
 
   const addToCart = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       await addItem({
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0].id),
-      })
-      openSidebar()
-      setLoading(false)
+      });
+      openSidebar();
+      setLoading(false);
     } catch (err) {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Container className="max-w-none w-full" clean>
@@ -57,7 +57,7 @@ const ProductView: FC<Props> = ({ product }) => {
         title={product.name}
         description={product.description}
         openGraph={{
-          type: 'website',
+          type: "website",
           title: product.name,
           description: product.description,
           images: [
@@ -70,8 +70,8 @@ const ProductView: FC<Props> = ({ product }) => {
           ],
         }}
       />
-      <div className={cn(s.root, 'fit')}>
-        <div className={cn(s.productDisplay, 'fit')}>
+      <div className={cn(s.root, "fit")}>
+        <div className={cn(s.productDisplay, "fit")}>
           <div className={s.nameBox}>
             <h1 className={s.name}>{product.name}</h1>
             <div className={s.price}>
@@ -88,7 +88,7 @@ const ProductView: FC<Props> = ({ product }) => {
                   <Image
                     className={s.img}
                     src={image.url!}
-                    alt={image.alt || 'Product Image'}
+                    alt={image.alt || "Product Image"}
                     width={1050}
                     height={1050}
                     priority={i === 0}
@@ -108,25 +108,25 @@ const ProductView: FC<Props> = ({ product }) => {
                   {opt.values.map((v, i: number) => {
                     const active = (choices as any)[
                       opt.displayName.toLowerCase()
-                    ]
+                    ];
 
                     return (
                       <Swatch
                         key={`${opt.id}-${i}`}
                         active={v.label.toLowerCase() === active}
                         variant={opt.displayName}
-                        color={v.hexColors ? v.hexColors[0] : ''}
+                        color={v.hexColors ? v.hexColors[0] : ""}
                         label={v.label}
                         onClick={() => {
                           setChoices((choices) => {
                             return {
                               ...choices,
                               [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
-                            }
-                          })
+                            };
+                          });
                         }}
                       />
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -143,7 +143,6 @@ const ProductView: FC<Props> = ({ product }) => {
               className={s.button}
               onClick={addToCart}
               loading={loading}
-              disabled={!variant && product.options.length > 0}
             >
               Add to Cart
             </Button>
@@ -158,7 +157,7 @@ const ProductView: FC<Props> = ({ product }) => {
         )}
       </div>
     </Container>
-  )
-}
+  );
+};
 
-export default ProductView
+export default ProductView;

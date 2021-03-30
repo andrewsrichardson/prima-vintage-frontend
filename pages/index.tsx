@@ -1,28 +1,29 @@
-import { Layout } from '@components/common'
-import { Grid, Marquee, Hero } from '@components/ui'
-import { ProductCard } from '@components/product'
+import { Layout } from "@components/common";
+import { Grid, Marquee, Hero } from "@components/ui";
+import { ProductCard } from "@components/product";
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
-import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 
-import { getConfig } from '@framework/api'
-import getAllProducts from '@framework/product/get-all-products'
-import getSiteInfo from '@framework/common/get-site-info'
-import getAllPages from '@framework/common/get-all-pages'
+import { getConfig } from "@framework/api";
+import getAllProducts from "@framework/product/get-all-products";
+import getSiteInfo from "@framework/common/get-site-info";
+import getAllPages from "@framework/common/get-all-pages";
+import Image from "next/image";
 
 export async function getStaticProps({
   preview,
   locale,
 }: GetStaticPropsContext) {
-  const config = getConfig({ locale })
+  const config = getConfig({ locale });
 
   const { products } = await getAllProducts({
     variables: { first: 12 },
     config,
     preview,
-  })
+  });
 
-  const { categories, brands } = await getSiteInfo({ config, preview })
-  const { pages } = await getAllPages({ config, preview })
+  const { categories, brands } = await getSiteInfo({ config, preview });
+  const { pages } = await getAllPages({ config, preview });
 
   return {
     props: {
@@ -32,7 +33,7 @@ export async function getStaticProps({
       pages,
     },
     revalidate: 14400,
-  }
+  };
 }
 
 export default function Home({
@@ -42,7 +43,22 @@ export default function Home({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <Grid>
+      <div
+        style={{
+          width: "100%",
+          height: "1080px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        {/* <Image
+          src="/sitting.jpg"
+          width="1920px"
+          height="1080px"
+          layout="intrinsic"
+        /> */}
+      </div>
+      {/* <Grid>
         {products.slice(0, 3).map((product, i) => (
           <ProductCard
             key={product.id}
@@ -53,7 +69,7 @@ export default function Home({
             }}
           />
         ))}
-      </Grid>
+      </Grid> */}
       <Marquee variant="secondary">
         {products.slice(0, 3).map((product, i) => (
           <ProductCard
@@ -108,7 +124,7 @@ export default function Home({
         brands={brands}
       /> */}
     </>
-  )
+  );
 }
 
-Home.Layout = Layout
+Home.Layout = Layout;
