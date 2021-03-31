@@ -1,4 +1,4 @@
-import { Layout } from "@components/common";
+import { Layout, CategoryWidget } from "@components/common";
 import { Grid, Marquee, Hero } from "@components/ui";
 import { ProductCard } from "@components/product";
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
@@ -9,6 +9,7 @@ import getAllProducts from "@framework/product/get-all-products";
 import getSiteInfo from "@framework/common/get-site-info";
 import getAllPages from "@framework/common/get-all-pages";
 import Image from "next/image";
+import { relative } from "node:path";
 
 export async function getStaticProps({
   preview,
@@ -44,6 +45,7 @@ export default function Home({
   return (
     <>
       <div
+        className="bg-violet textured"
         style={{
           width: "100%",
           height: "1080px",
@@ -83,7 +85,27 @@ export default function Home({
           />
         ))}
       </Marquee>
-      <Hero
+      <div
+        style={{
+          width: "100%",
+          position: "relative",
+          height: "1440px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-around",
+          overflow: "hidden",
+        }}
+        className={"textured"}
+      >
+        <div style={{ position: "relative", left: "25%" }}>
+          <CategoryWidget image="/mens-cover.jpg" direction="left" />
+        </div>
+        <div style={{ position: "relative", left: "45%" }}>
+          <CategoryWidget image="/womens-cover.jpg" direction="right" />
+        </div>
+      </div>
+
+      {/* <Hero
         headline="Release Details: The Yeezy BOOST 350 V2 ‘Natural'"
         description="
         The Yeezy BOOST 350 V2 lineup continues to grow. We recently had the
@@ -92,7 +114,7 @@ export default function Home({
         shoe was originally called ‘Abez’, which translated to ‘Tin’ in
         Hebrew. It’s now undergone a name change, and will be referred to as
         ‘Natural’."
-      />
+      /> */}
       <Grid layout="B">
         {products.slice(0, 3).map((product, i) => (
           <ProductCard

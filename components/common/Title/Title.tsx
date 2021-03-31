@@ -1,11 +1,15 @@
 import { FC } from "react";
 import useScrollPosition from "@react-hook/window-scroll";
-import { Motion, spring } from "react-motion";
+import { Motion } from "react-motion";
 import useWindowDimensions from "lib/hooks/useWindowDimensions";
 
-const Title: FC = () => {
+interface Props {
+  moving: boolean;
+}
+
+const Title: FC<Props> = ({ moving }) => {
   const scrollY: number = useScrollPosition(60);
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   let ogFont = 5;
   let topGoal = -280;
@@ -38,13 +42,15 @@ const Title: FC = () => {
         width: "100%",
         textAlign: "center",
         top: baseTop,
+        pointerEvents: "none",
       }}
     >
       <Motion
         defaultStyle={{ y: 0, x1: 0, scale: 1 }}
         style={{
-          top: scrollY < scrollMax ? topGoal * percent : topGoal,
-          scale: scrollY < scrollMax ? 1 - percent + scaleTo : scaleTo,
+          top: scrollY < scrollMax && moving ? topGoal * percent : topGoal,
+          scale:
+            scrollY < scrollMax && moving ? 1 - percent + scaleTo : scaleTo,
         }}
       >
         {({

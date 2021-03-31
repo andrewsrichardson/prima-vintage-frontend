@@ -8,3 +8,4 @@ export { default as UserNav } from "./UserNav";
 export { default as Head } from "./Head";
 export { default as I18nWidget } from "./I18nWidget";
 export { default as Title } from "./Title";
+export { default as CategoryWidget } from "./CategoryWidget";
