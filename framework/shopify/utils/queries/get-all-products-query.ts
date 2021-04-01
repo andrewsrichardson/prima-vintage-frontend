@@ -10,6 +10,7 @@ edges {
     vendor
     handle
     description
+    productType
     priceRange {
       minVariantPrice {
         amount
@@ -31,7 +32,7 @@ edges {
       }
     }
   }
-}`
+}`;
 
 export const productsFragment = `
 products(
@@ -42,7 +43,7 @@ products(
 ) {
   ${productConnection}
 }
-`
+`;
 
 const getAllProductsQuery = /* GraphQL */ `
   query getAllProducts(
@@ -53,5 +54,5 @@ const getAllProductsQuery = /* GraphQL */ `
   ) {
     ${productsFragment}
   }
-`
-export default getAllProductsQuery
+`;
+export default getAllProductsQuery;

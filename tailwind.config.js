@@ -16,6 +16,13 @@ module.exports = {
   },
   theme: {
     extend: {
+      inset: {
+        0: 0,
+        // ...
+        64: '16rem',
+        '1/5': '20%',
+        '2/5': '45%',
+      },
       maxWidth: {
         '8xl': '1920px',
       },
@@ -63,4 +70,4 @@ module.exports = {
       },
     },
   },
-}
+};

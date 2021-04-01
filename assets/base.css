@@ -105,6 +105,9 @@ a {
 .textured {
   background-image: url(/whitenoise.png);
 }
+.underline-dotted {
+  border-bottom: 3px var(--accents-8) dashed 0;
+}
 .fadeIn {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;

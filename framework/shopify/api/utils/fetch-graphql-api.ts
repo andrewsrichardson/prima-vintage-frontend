@@ -1,8 +1,8 @@
-import type { GraphQLFetcher } from '@commerce/api'
-import fetch from './fetch'
+import type { GraphQLFetcher } from "@commerce/api";
+import fetch from "./fetch";
 
-import { API_URL, API_TOKEN } from '../../const'
-import { getError } from '../../utils/handle-fetch-response'
+import { API_URL, API_TOKEN } from "../../const";
+import { getError } from "../../utils/handle-fetch-response";
 
 const fetchGraphqlApi: GraphQLFetcher = async (
   query: string,
@@ -11,24 +11,24 @@ const fetchGraphqlApi: GraphQLFetcher = async (
 ) => {
   const res = await fetch(API_URL, {
     ...fetchOptions,
-    method: 'POST',
+    method: "POST",
     headers: {
-      'X-Shopify-Storefront-Access-Token': API_TOKEN!,
+      "X-Shopify-Storefront-Access-Token": API_TOKEN!,
       ...fetchOptions?.headers,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       query,
       variables,
     }),
-  })
+  });
 
-  const { data, errors, status } = await res.json()
+  const { data, errors, status } = await res.json();
 
   if (errors) {
-    throw getError(errors, status)
+    throw getError(errors, status);
   }
 
-  return { data, res }
-}
-export default fetchGraphqlApi
+  return { data, res };
+};
+export default fetchGraphqlApi;
