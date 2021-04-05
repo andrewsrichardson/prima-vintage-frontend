@@ -25,14 +25,13 @@ const getSiteInfo = async (options?: {
 
   const categories = await getCategories(config);
   const brands = await getVendors(config);
-  const types = await getTypes(config);
-  const tags = await getTags(config);
+  const types = await getTypes();
 
   return {
     categories,
     brands,
     types,
-    tags,
+    tags: null,
   };
 };
 

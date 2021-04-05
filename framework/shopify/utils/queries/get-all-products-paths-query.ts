@@ -13,5 +13,5 @@ const getAllProductsPathsQuery = /* GraphQL */ `
       }
     }
   }
-`
-export default getAllProductsPathsQuery
+`;
+export default getAllProductsPathsQuery;

@@ -1,8 +1,8 @@
-const commerce = require('./commerce.config.json')
-const withCommerceConfig = require('./framework/commerce/with-config')
+const commerce = require('./commerce.config.json');
+const withCommerceConfig = require('./framework/commerce/with-config');
 
-const isBC = commerce.provider === 'bigcommerce'
-const isShopify = commerce.provider === 'shopify'
+const isBC = commerce.provider === 'bigcommerce';
+const isShopify = commerce.provider === 'shopify';
 
 module.exports = withCommerceConfig({
   commerce,
@@ -24,6 +24,22 @@ module.exports = withCommerceConfig({
         destination: '/api/bigcommerce/customers/logout?redirect_to=/',
       },
       // Rewrites for /search
+      // {
+      //   source: '/search/:type',
+      //   destination: '/search',
+      // },
+      {
+        source: '/search/type/:name',
+        destination: '/search',
+      },
+      {
+        source: '/search/type/:name/:category',
+        destination: '/search',
+      },
+      {
+        source: '/search/type/:name/designers/:name',
+        destination: '/search',
+      },
       {
         source: '/search/designers/:name',
         destination: '/search',
@@ -33,10 +49,14 @@ module.exports = withCommerceConfig({
         destination: '/search',
       },
       {
+        source: '/search/type/:name/designers/:name/:category',
+        destination: '/search',
+      },
+      {
         // This rewrite will also handle `/search/designers`
         source: '/search/:category',
         destination: '/search',
       },
-    ].filter((x) => x)
+    ].filter((x) => x);
   },
-})
+});

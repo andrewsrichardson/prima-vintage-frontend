@@ -28,7 +28,10 @@ const Footer: FC<Props> = ({ className, pages }) => {
           <div className="col-span-1 lg:col-span-2">
             <Link href="/">
               <a className="flex flex-initial items-center font-bold md:mr-24">
-                <span className="rounded-full border border-gray-700 mr-2">
+                <span
+                  className="rounded-full mr-2"
+                  style={{ maxHeight: "30px" }}
+                >
                   <Logo />
                 </span>
                 <span>Prima Vintage</span>
@@ -86,7 +89,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
             <div className="flex space-x-6 items-center h-10">
               <a
                 aria-label="Github Repository"
-                href="https://github.com/vercel/commerce"
+                href="https://github.com/andrewsrichardson"
                 className={s.link}
               >
                 <Github />

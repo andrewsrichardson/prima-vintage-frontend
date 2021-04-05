@@ -1,7 +1,8 @@
 import {
   TransitionGroup,
-  Transition as ReactTransition,
+  CSSTransition as ReactTransition,
 } from "react-transition-group";
+import Image from "next/image";
 
 import { ReactChild } from "react";
 
@@ -31,25 +32,58 @@ const getTransitionStyles = {
   },
 };
 
-const getHomeTransition = {
+const overlayStyle = {
   entering: {
-    position: `absolute`,
-    opacity: 1,
-    transform: `translateX(50px)`,
-    backgroundColor: "green",
+    position: `relative`,
+    // backgroundColor: "#edbbd8",
+    opacity: 0,
   },
   entered: {
-    transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
+    position: `relative`,
+    transition: `opacity 1.5s ease-in`,
+    // backgroundColor: "#edbbd8",
     opacity: 1,
-    transform: `translateX(0px)`,
-    animation: "blink .3s linear 2",
   },
   exiting: {
-    transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
+    position: `relative`,
+  },
+};
+const headerStyle = {
+  entering: {
+    opacity: 1,
+    position: "relative",
+  },
+  entered: {
     opacity: 0,
-    transform: `translateX(-50px)`,
-    backgroundColor: "green",
-    zIndex: 10,
+    position: "relative",
+    transition: `opacity 1s ease-out`,
+  },
+  exiting: {
+    position: `relative`,
+  },
+};
+const blurStyle = {
+  entering: {
+    position: `absolute`,
+    backgroundColor: "#edbbd8",
+    width: "100%",
+    height: "100%",
+    filter: "blur(0)",
+  },
+  entered: {
+    position: `absolute`,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#edbbd8",
+    transition: `filter 0.5s ease-out`,
+    filter: "blur(2rem)",
+  },
+  exiting: {
+    position: `absolute`,
+    width: "100%",
+    height: "100%",
+    transition: `background-color 0.5s ease-in-out`,
+    backgroundColor: "#edbbd8",
   },
 };
 
@@ -57,26 +91,49 @@ const Transition: React.FC<TransitionKind<ReactChild>> = ({
   children,
   location,
 }) => {
-  const styles = location === "/" ? getHomeTransition : getTransitionStyles;
-  // if (location === "/") TIMEOUT = 1000;
+  if (location === "/") TIMEOUT = 1000;
   return (
     <TransitionGroup style={{ position: "relative" }}>
       <ReactTransition
         key={location}
+        appear={true}
+        in={true}
         timeout={{
           enter: TIMEOUT,
           exit: TIMEOUT,
         }}
       >
-        {(status) => (
-          <div
-            style={{
-              ...styles[status],
-            }}
-          >
-            {children}
-          </div>
-        )}
+        {(status) => {
+          return location === "/" ? (
+            //home
+            <>
+              <div
+                style={{ ...blurStyle[status] }}
+                className="textured flex justify-center items-center max-h-screen"
+              >
+                <div style={{ ...headerStyle[status], height: "300px" }}>
+                  <Image
+                    width="300px"
+                    height="300px"
+                    src="/globe-transparent.png"
+                  />
+                </div>
+              </div>
+              <div style={{ ...overlayStyle[status] }} className="textured">
+                {children}
+              </div>
+            </>
+          ) : (
+            <div
+              //everything else
+              style={{
+                ...getTransitionStyles[status],
+              }}
+            >
+              {children}
+            </div>
+          );
+        }}
       </ReactTransition>
     </TransitionGroup>
   );

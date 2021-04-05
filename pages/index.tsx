@@ -97,18 +97,26 @@ export default function Home({
         }}
         className={"textured"}
       >
-        <div className={"relative md:inset-x-1/5"}>
-          <CategoryWidget image="/mens-cover.jpg" direction="left" />
+        <div className={"relative md:inset-x-1/2"}>
+          <CategoryWidget
+            image="/mens-cover.jpg"
+            direction="left"
+            path={"/search?sort=latest-desc"}
+          />
         </div>
-        <div className={"relative md:inset-x-2/5"}>
-          <CategoryWidget image="/womens-cover.jpg" direction="right" />
+        <div className={"relative md:inset-x-1/2"}>
+          <CategoryWidget
+            image="/womens-cover.jpg"
+            direction="right"
+            path={"/search/prima-collection"}
+          />
         </div>
       </div>
 
       <Hero
         headline="Sustainable garms. Affordable Prices."
         description="
-        Prima Vintage is committed to bringing the retro clothing community the freshest ethically-sourced clothing. "
+        Prima Vintage is committed to bringing the retro clothing community the freshest ethically-sourced garms. "
       />
       <Grid layout="B">
         {products.slice(0, 3).map((product, i) => (

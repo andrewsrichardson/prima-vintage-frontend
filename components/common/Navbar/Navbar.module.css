@@ -15,7 +15,8 @@
 }
 
 .logo {
-  @apply cursor-pointer rounded-full border transform duration-100 ease-in-out;
+  @apply cursor-pointer rounded-full transform duration-100 ease-in-out;
+  height: 30px;
 
   &:hover {
     @apply shadow-md;

@@ -32,7 +32,6 @@ const NavbarRoot: FC = ({ children }) => {
 
   return (
     <div
-      // style={{ backgroundColor: hasScrolled ? "white" : "--violet" }}
       className={cn(s.root, colour, "textured", {
         "shadow-magical": hasScrolled,
       })}
