@@ -20,6 +20,7 @@ const CategoryWidget: FC<Props> = ({ image, direction, path }) => {
   let scrollW = -10;
   if (width >= 900) {
     ogFont = 10;
+    scrollW = -scrollW;
   }
   if (width >= 1250) {
     ogFont = 7;

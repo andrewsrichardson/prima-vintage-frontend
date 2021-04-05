@@ -13,7 +13,7 @@ const Title: FC<Props> = ({ moving }) => {
 
   let ogFont = 5;
   let topGoal = -280;
-  let baseTop = 200;
+  let baseTop = 190;
 
   const scrollMax = 250;
   let scaleTo = 0.2;
@@ -32,7 +32,7 @@ const Title: FC<Props> = ({ moving }) => {
     ogFont = 20;
     topGoal = -440;
     scaleTo = 0.1;
-    baseTop = 5;
+    baseTop = 0;
   }
   const percent = scrollY / scrollMax;
   return (
@@ -53,17 +53,7 @@ const Title: FC<Props> = ({ moving }) => {
             scrollY < scrollMax && moving ? 1 - percent + scaleTo : scaleTo,
         }}
       >
-        {({
-          top,
-          x2,
-          scale,
-          y1,
-        }: {
-          top: number;
-          x2: number;
-          y1: number;
-          scale: number;
-        }) => {
+        {({ top, scale }: { top: number; scale: number }) => {
           return (
             <h1
               style={{
