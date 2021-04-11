@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&family=Raleway:wght@200&display=swap");
+
 @tailwind base;
-@import './base.css';
+@import "./base.css";
 
 @tailwind components;
-@import './components.css';
+@import "./components.css";
 
 @tailwind utilities;

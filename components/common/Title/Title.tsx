@@ -56,11 +56,13 @@ const Title: FC<Props> = ({ moving }) => {
         {({ top, scale }: { top: number; scale: number }) => {
           return (
             <h1
+              className="faded"
               style={{
                 position: "relative",
                 top: top,
                 fontSize: `${ogFont}rem`,
                 transform: `scale(${scale})`,
+                fontFamily: "--var(font-heading)",
               }}
             >
               <span

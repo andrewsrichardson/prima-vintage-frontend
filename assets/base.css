@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600&family=Raleway:wght@500&display=swap");
+
 :root {
   --primary: #ffffff;
   --primary-2: #f1f3f5;
@@ -30,8 +32,8 @@
   --accents-7: #495057;
   --accents-8: #343a40;
   --accents-9: #212529;
-  --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue",
-    "Helvetica", sans-serif;
+  --font-sans: "Raleway", -apple-system, system-ui, "sans-serif";
+  --font-heading: "Noto Serif JP", -apple-system, system-ui, "serif";
 }
 
 [data-theme="dark"] {
@@ -78,12 +80,22 @@ html {
 
 html,
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-sans) !important;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary);
   color: var(--text-primary);
+}
+h1 {
+  font-family: var(--font-heading) !important;
+  background-color: rgba(0, 0, 0, 1);
+  background: url(/dc-distressed-bg-1.jpg);
+  letter-spacing: -8px;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0.7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #000000;
 }
 
 body {
