@@ -89,13 +89,7 @@ body {
 }
 h1 {
   font-family: var(--font-heading) !important;
-  background-color: rgba(0, 0, 0, 1);
-  background: url(/dc-distressed-bg-1.jpg);
   letter-spacing: -8px;
-  -webkit-text-fill-color: rgba(0, 0, 0, 0.7);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: #000000;
 }
 
 body {

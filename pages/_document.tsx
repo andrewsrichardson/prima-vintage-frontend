@@ -21,7 +21,7 @@ class MyDocument extends Document {
               src="https://www.googletagmanager.com/ns.html?id=GTM-PQNQ3VW"
               height="0"
               width="0"
-              style="display:none;visibility:hidden"
+              style={{ display: "none", visibility: "hidden" }}
             ></iframe>
           </noscript>
           <Main />
