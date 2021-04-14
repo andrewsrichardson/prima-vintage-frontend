@@ -37,6 +37,7 @@ const Title: FC<Props> = ({ moving }) => {
   const percent = scrollY / scrollMax;
   return (
     <div
+      className="faded"
       style={{
         position: "absolute",
         width: "100%",
@@ -56,7 +57,6 @@ const Title: FC<Props> = ({ moving }) => {
         {({ top, scale }: { top: number; scale: number }) => {
           return (
             <h1
-              className="faded"
               style={{
                 position: "relative",
                 top: top,

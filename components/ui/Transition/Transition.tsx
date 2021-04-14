@@ -4,7 +4,7 @@ import {
 } from "react-transition-group";
 import Image from "next/image";
 
-import { ReactChild } from "react";
+import { ReactChild, useEffect, useState } from "react";
 
 type TransitionKind<RC> = {
   children: RC;
@@ -40,8 +40,7 @@ const overlayStyle = {
   },
   entered: {
     position: `relative`,
-    transition: `opacity 1.5s ease-in`,
-    // backgroundColor: "#edbbd8",
+    transition: `opacity 2s ease-in`,
     opacity: 1,
   },
   exiting: {
@@ -56,7 +55,7 @@ const headerStyle = {
   entered: {
     opacity: 0,
     position: "relative",
-    transition: `opacity 1s ease-out`,
+    transition: `opacity 2s ease-out`,
   },
   exiting: {
     position: `relative`,
@@ -91,18 +90,16 @@ const Transition: React.FC<TransitionKind<ReactChild>> = ({
   children,
   location,
 }) => {
-  if (location === "/") TIMEOUT = 1000;
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const timeoutAmt = location === "/" ? 4000 : TIMEOUT;
+    console.log(timeoutAmt);
+    setTimeout(() => setShow(true), timeoutAmt);
+  }, []);
+  console.log(show);
   return (
     <TransitionGroup style={{ position: "relative" }}>
-      <ReactTransition
-        key={location}
-        appear={true}
-        in={true}
-        timeout={{
-          enter: TIMEOUT,
-          exit: TIMEOUT,
-        }}
-      >
+      <ReactTransition key={location} in={show} timeout={TIMEOUT}>
         {(status) => {
           return location === "/" ? (
             //home
