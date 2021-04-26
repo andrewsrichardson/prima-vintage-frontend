@@ -42,6 +42,7 @@ export default function Home({
   brands,
   categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const rows = Array.from(Array(12).keys());
   return (
     <>
       <div
@@ -50,9 +51,45 @@ export default function Home({
           width: "100%",
           height: "1080px",
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
         }}
       >
+        <div
+          className="hidden md:block"
+          style={{
+            borderRight: "24px solid #38559c",
+            width: "15%",
+            overflow: "hidden",
+          }}
+        >
+          {rows.map((i) => (
+            <h2
+              key={"prima-" + i}
+              style={{ position: "relative", left: Math.random() * 30 }}
+              className="text-8xl italic"
+            >
+              PRIMA
+            </h2>
+          ))}
+        </div>{" "}
+        <div
+          className="hidden md:block"
+          style={{
+            borderLeft: "24px solid #38559c",
+            width: "15%",
+            overflow: "hidden",
+          }}
+        >
+          {rows.map((i) => (
+            <h2
+              key={"prima-" + i}
+              style={{ position: "relative", right: Math.random() * 30 }}
+              className="text-8xl italic"
+            >
+              VINTAGE
+            </h2>
+          ))}
+        </div>
         {/* <Image
           src="/sitting.jpg"
           width="1920px"
@@ -60,18 +97,6 @@ export default function Home({
           layout="intrinsic"
         /> */}
       </div>
-      {/* <Grid>
-        {products.slice(0, 3).map((product, i) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            imgProps={{
-              width: i === 0 ? 1080 : 540,
-              height: i === 0 ? 1080 : 540,
-            }}
-          />
-        ))}
-      </Grid> */}
       <Marquee variant="secondary">
         {products.slice(0, 3).map((product, i) => (
           <ProductCard

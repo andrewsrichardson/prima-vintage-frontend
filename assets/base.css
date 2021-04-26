@@ -22,6 +22,7 @@
   --blue: #0070f3;
   --violet: #edbbd8;
   --violet-light: #7048e8;
+  --darkviolet: #38559c;
   --accents-0: #f8f9fa;
   --accents-1: #f1f3f5;
   --accents-2: #e9ecef;
@@ -91,7 +92,11 @@ h1 {
   font-family: var(--font-heading) !important;
   letter-spacing: -8px;
 }
+h2 {
+  font-family: var(--font-heading) !important;
 
+  color: var(--darkviolet);
+}
 body {
   position: relative;
   min-height: 100%;

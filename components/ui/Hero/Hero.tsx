@@ -1,17 +1,17 @@
-import React, { FC } from 'react'
-import { Container } from '@components/ui'
-import { RightArrow } from '@components/icons'
-import s from './Hero.module.css'
-import Link from 'next/link'
+import React, { FC } from "react";
+import { Container } from "@components/ui";
+import { RightArrow } from "@components/icons";
+import s from "./Hero.module.css";
+import Link from "next/link";
 interface Props {
-  className?: string
-  headline: string
-  description: string
+  className?: string;
+  headline: string;
+  description: string;
 }
 
 const Hero: FC<Props> = ({ headline, description }) => {
   return (
-    <div className="bg-black">
+    <div className="bg-darkviolet textured">
       <Container>
         <div className={s.root}>
           <h2 className="text-4xl leading-10 font-extrabold text-white sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">
@@ -31,7 +31,7 @@ const Hero: FC<Props> = ({ headline, description }) => {
         </div>
       </Container>
     </div>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

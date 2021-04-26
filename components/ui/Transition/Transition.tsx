@@ -85,50 +85,56 @@ const blurStyle = {
     backgroundColor: "#edbbd8",
   },
 };
-
 const Transition: React.FC<TransitionKind<ReactChild>> = ({
   children,
   location,
 }) => {
-  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const timeoutAmt = location === "/" ? 4000 : TIMEOUT;
-    console.log(timeoutAmt);
-    setTimeout(() => setShow(true), timeoutAmt);
+    const timeoutAmt = 4000;
+    setTimeout(() => setLoading(false), timeoutAmt);
   }, []);
-  console.log(show);
+
   return (
-    <TransitionGroup style={{ position: "relative" }}>
-      <ReactTransition key={location} in={show} timeout={TIMEOUT}>
+    <TransitionGroup
+      style={{ position: "relative", height: "100%", width: "100%" }}
+    >
+      <ReactTransition key={location} timeout={TIMEOUT}>
         {(status) => {
           return location === "/" ? (
             //home
             <>
-              <div
-                style={{ ...blurStyle[status] }}
-                className="textured flex justify-center items-center max-h-screen"
-              >
-                <div style={{ ...headerStyle[status], height: "300px" }}>
-                  <Image
-                    width="300px"
-                    height="300px"
-                    src="/globe-transparent.png"
-                  />
+              {loading ? (
+                <div
+                  // style={{ ...blurStyle[status] }}
+                  className="textured flex justify-center items-center min-h-screen bg-violet"
+                >
+                  <div style={{ height: "300px" }}>
+                    <Image
+                      width="300px"
+                      height="300px"
+                      src="/globe-transparent.png"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div style={{ ...overlayStyle[status] }} className="textured">
-                {children}
-              </div>
+              ) : (
+                <div style={{ ...overlayStyle[status] }} className="textured">
+                  {children}
+                </div>
+              )}
             </>
           ) : (
-            <div
-              //everything else
-              style={{
-                ...getTransitionStyles[status],
-              }}
-            >
-              {children}
-            </div>
+            <>
+              <div
+                //everything else
+                style={{
+                  ...getTransitionStyles[status],
+                }}
+              >
+                {children}
+              </div>
+              )
+            </>
           );
         }}
       </ReactTransition>
