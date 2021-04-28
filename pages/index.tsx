@@ -42,7 +42,7 @@ export default function Home({
   brands,
   categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const rows = Array.from(Array(12).keys());
+  const rows = Array.from(Array(30).keys());
   return (
     <>
       <div
@@ -65,8 +65,12 @@ export default function Home({
           {rows.map((i) => (
             <h2
               key={"prima-" + i}
-              style={{ position: "relative", left: Math.random() * 30 }}
-              className="text-8xl italic"
+              style={{
+                position: "relative",
+                right: Math.random() * 30,
+                textAlign: "right",
+              }}
+              className="text-7xl italic"
             >
               PRIMA
             </h2>
@@ -83,8 +87,8 @@ export default function Home({
           {rows.map((i) => (
             <h2
               key={"prima-" + i}
-              style={{ position: "relative", right: Math.random() * 30 }}
-              className="text-8xl italic"
+              style={{ position: "relative", left: Math.random() * 30 }}
+              className="text-7xl italic"
             >
               VINTAGE
             </h2>
