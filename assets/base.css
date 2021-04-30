@@ -18,7 +18,7 @@
   --green: #37b679;
   --red: #da3c3c;
   --pink: #e64980;
-  --purple: #f81ce5;
+  --purple: #38559c;
   --blue: #0070f3;
   --violet: #edbbd8;
   --violet-light: #7048e8;
@@ -122,6 +122,51 @@ a {
 .fadeIn {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
+}
+
+.hover-link .text-link::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 5px;
+  background-color: var(--darkviolet);
+  top: -5px;
+  left: 0;
+  right: 0;
+  transition: width 0.4s ease;
+}
+.hover-link .text-link:hover::before,
+.hover-link .text-link:hover::after {
+  width: 100%;
+}
+.text-link {
+  position: relative;
+  color: var(--accents-9);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.hover-link .text-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 5px;
+  background-color: var(--darkviolet);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 20px;
+  transition: width 0.2s ease;
+  color: var(--accents-0);
+}
+
+.checked {
+  background-image: linear-gradient(45deg, #38559c 25%, transparent 25%),
+    linear-gradient(-45deg, #38559c 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #38559c 75%),
+    linear-gradient(-45deg, transparent 75%, #38559c 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
 @-webkit-keyframes fadeIn {

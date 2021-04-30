@@ -2,12 +2,40 @@
   @apply sticky top-0 z-40 transition-all duration-150;
 }
 
+.linkWrapper {
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 90px;
+}
+
 .link {
-  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-accents-7;
+  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer;
+}
+.linkAll {
+  margin-left: 80px !important;
+}
+
+.dropdownWrapper {
+  position: fixed;
+  height: 400px;
+  width: 72%;
+  top: 90px;
+  display: block;
+  background-color: var(--violet);
+  z-index: 1000;
+  border: 5px solid var(--darkviolet);
+  border-top: 0px;
+  box-shadow: 0px 51px 135px -6px rgba(235, 235, 235, 0.45);
+  -webkit-box-shadow: 0px 51px 135px -6px rgba(235, 235, 235, 0.45);
+  -moz-box-shadow: 0px 51px 135px -6px rgba(235, 235, 235, 0.45);
 }
 
 .link:hover {
-  @apply text-accents-9;
+  color: white;
+}
+.linkWrapper:hover .dropdownWrapper {
+  display: flex;
 }
 
 .link:focus {

@@ -46,6 +46,7 @@ module.exports = {
         'accents-8': 'var(--accents-8)',
         'accents-9': 'var(--accents-9)',
         violet: 'var(--violet)',
+        purple: 'var(--purple)',
         'violet-light': 'var(--violet-light)',
         pink: 'var(--pink)',
         cyan: 'var(--cyan)',

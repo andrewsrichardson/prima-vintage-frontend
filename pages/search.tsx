@@ -86,9 +86,7 @@ export default function Search({
 
   const { data } = useSearch({
     search: typeof q === "string" ? q : "",
-    // TODO: Shopify - Fix this type
     categoryId: activeCategory?.entityId as any,
-    // TODO: Shopify - Fix this type
     brandId: (activeBrand as any)?.entityId,
     type: (activeType as any)?.name,
     sort: typeof sort === "string" ? sort : "",
@@ -105,8 +103,8 @@ export default function Search({
 
   return (
     <Container>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mt-3 mb-20">
-        <div className="col-span-8 lg:col-span-2 order-1 lg:order-none">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-20">
+        <div className="col-span-8 lg:col-span-2 order-1 lg:order-none ">
           {/* Categories */}
           <div className="relative inline-block w-full">
             <div className="lg:hidden">
@@ -165,26 +163,21 @@ export default function Search({
                           query,
                         }}
                       >
-                        <a
+                        <h2
                           onClick={(e) => handleClick(e, "categories")}
-                          className={
-                            "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4"
-                          }
+                          className="block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4 cursor-pointer text-gray-900"
                         >
-                          All Categories
-                        </a>
+                          ALL CATEGORIES
+                          <span className="text-gray-400 text-sm text ml-1">
+                            {activeCategory ? "(clear)" : null}
+                          </span>
+                        </h2>
                       </Link>
                     </li>
                     {categories.map((cat) => (
                       <li
                         key={cat.path}
-                        className={cn(
-                          "block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900",
-                          {
-                            underline:
-                              activeCategory?.entityId === cat.entityId,
-                          }
-                        )}
+                        className="block text-sm leading-5 text-gray-700 hover:bg-gray-100 lg:hover:bg-transparent hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                       >
                         <Link
                           href={{
@@ -194,9 +187,13 @@ export default function Search({
                         >
                           <a
                             onClick={(e) => handleClick(e, "categories")}
-                            className={
-                              "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4"
-                            }
+                            className={cn(
+                              "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4",
+                              {
+                                underline:
+                                  activeCategory?.entityId === cat.entityId,
+                              }
+                            )}
                           >
                             {cat.name}
                           </a>
@@ -265,14 +262,17 @@ export default function Search({
                           query,
                         }}
                       >
-                        <a
+                        <h2
                           onClick={(e) => handleClick(e, "type")}
                           className={
-                            "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4"
+                            "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4  cursor-pointer text-gray-900"
                           }
                         >
-                          All Types
-                        </a>
+                          ALL TYPES
+                          <span className="text-gray-400 text-sm text ml-1">
+                            {activeType ? "(clear)" : null}
+                          </span>
+                        </h2>
                       </Link>
                     </li>
                     {types.flatMap(({ node }) => (
@@ -322,8 +322,8 @@ export default function Search({
                   aria-expanded="true"
                 >
                   {activeBrand?.name
-                    ? `Design: ${activeBrand?.name}`
-                    : "All Designs"}
+                    ? `Brand: ${activeBrand?.name}`
+                    : "All Brands"}
                   <svg
                     className="-mr-1 ml-2 h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -367,14 +367,17 @@ export default function Search({
                           query,
                         }}
                       >
-                        <a
+                        <h2
                           onClick={(e) => handleClick(e, "brands")}
                           className={
-                            "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4"
+                            "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4 cursor-pointer text-gray-900"
                           }
                         >
-                          All Designers
-                        </a>
+                          ALL BRANDS
+                          <span className="text-gray-400 text-sm text ml-1">
+                            {activeBrand ? "(clear)" : null}
+                          </span>
+                        </h2>
                       </Link>
                     </li>
                     {brands.flatMap(({ node }) => (
@@ -416,9 +419,15 @@ export default function Search({
           </div>
         </div>
         {/* Products */}
-        <div className="col-span-8 order-3 lg:order-none">
-          {(q || activeCategory || activeBrand) && (
-            <div className="mb-12 transition ease-in duration-75">
+        <div
+          className="col-span-8 order-3 lg:order-none bg-violet textured"
+          style={{
+            borderLeft: "2px solid #38559c",
+            borderRight: "2px solid #38559c",
+          }}
+        >
+          {(q || activeCategory || activeBrand || activeType) && (
+            <div className="p-6 transition ease-in duration-75 bg-white">
               {data ? (
                 <>
                   <span
@@ -427,7 +436,7 @@ export default function Search({
                       hidden: !data.found,
                     })}
                   >
-                    Showing {data.products.length} results{" "}
+                    {activeCategory.name} ({data.products.length} results){" "}
                     {q && (
                       <>
                         for "<strong>{q}</strong>"
@@ -545,14 +554,17 @@ export default function Search({
                           query: filterQuery({ q }),
                         }}
                       >
-                        <a
+                        <h2
                           onClick={(e) => handleClick(e, "sort")}
                           className={
-                            "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4"
+                            "block lg:inline-block px-4 py-2 lg:p-0 lg:my-2 lg:mx-4 cursor-pointer text-gray-900"
                           }
                         >
-                          Relevance
-                        </a>
+                          RELEVANCE
+                          <span className="text-gray-400 text-sm text ml-1">
+                            {sort ? "(clear)" : null}
+                          </span>
+                        </h2>
                       </Link>
                     </li>
                     {SORT.map(([key, text]) => (

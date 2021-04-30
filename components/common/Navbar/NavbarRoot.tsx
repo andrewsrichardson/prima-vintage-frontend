@@ -24,17 +24,14 @@ const NavbarRoot: FC = ({ children }) => {
     };
   }, [hasScrolled]);
   const router = useRouter();
-  const colour = hasScrolled
-    ? "bg-white"
-    : router.asPath === "/"
-    ? "bg-violet"
-    : "bg-white";
+  const colour = "bg-violet";
 
   return (
     <div
       className={cn(s.root, colour, "textured", {
         "shadow-magical": hasScrolled,
       })}
+      style={{ borderBottom: "2px solid #38559c" }}
     >
       {children}
     </div>

@@ -24,15 +24,7 @@ const Marquee: FC<Props> = ({
   );
 
   return (
-    <div
-      style={{
-        backgroundImage:
-          "linear-gradient(45deg, #38559C 25%, transparent 25%), linear-gradient(-45deg, #38559C 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #38559C 75%), linear-gradient(-45deg, transparent 75%, #38559C 75%)",
-        backgroundSize: "20px 20px",
-        backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
-      }}
-      className="bg-violet"
-    >
+    <div className="bg-violet checked">
       <Ticker offset={80}>
         {() => <div className={s.container}>{children}</div>}
       </Ticker>

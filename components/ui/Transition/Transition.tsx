@@ -133,7 +133,6 @@ const Transition: React.FC<TransitionKind<ReactChild>> = ({
               >
                 {children}
               </div>
-              )
             </>
           );
         }}
