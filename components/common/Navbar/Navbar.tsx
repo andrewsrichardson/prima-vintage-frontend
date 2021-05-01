@@ -10,13 +10,11 @@ import { getConfig } from "@framework/api";
 import getSiteInfo from "@framework/common/get-site-info";
 import useSWR from "swr";
 import getAllCollections from "@framework/product/get-all-collections";
+import { getCategories } from "@framework/utils";
 
 const Navbar: FC = () => {
   const router = useRouter();
   const moving = router.asPath === "/" ? true : false;
-  // const config = getConfig()
-  // const data = getAllCollections();
-  // console.log(data);
   return (
     <NavbarRoot>
       <Container>
@@ -61,7 +59,9 @@ const Navbar: FC = () => {
           </div>
 
           <div className="flex justify-end flex-1 space-x-8">
-            <Searchbar />
+            <div className="hidden lg:inline">
+              <Searchbar />
+            </div>
             <UserNav />
           </div>
         </div>

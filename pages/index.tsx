@@ -122,6 +122,24 @@ export default function Home({
         }}
         className={"textured"}
       >
+        <div
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "end",
+          }}
+        >
+          <Image
+            src="/retro-grid-purple.png"
+            height="748px"
+            width="1920px"
+            layout="responsive"
+            className="absolute"
+          />
+        </div>
         <div className={"relative md:inset-x-1/2"}>
           <CategoryWidget
             image="/mens-cover.jpg"

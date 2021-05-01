@@ -100,7 +100,6 @@ export default function Search({
     }
     setActiveFilter(filter);
   };
-
   return (
     <Container>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-20">
@@ -431,17 +430,23 @@ export default function Search({
               {data ? (
                 <>
                   <span
-                    className={cn("animated", {
+                    className={cn("animated italic", {
                       fadeIn: data.found,
                       hidden: !data.found,
                     })}
                   >
-                    {activeCategory.name} ({data.products.length} results){" "}
+                    {(activeCategory?.name ? activeCategory.name + " /" : "") +
+                      (activeBrand ? `${activeBrand.name} /` : "") +
+                      (activeType ? ` ${activeType.name}` : "")}{" "}
+                    ({data.products.length} results){" "}
                     {q && (
                       <>
                         for "<strong>{q}</strong>"
                       </>
                     )}
+                    {sort
+                      ? "Sort: " + SORT[SORT.findIndex((s) => s[0] === sort)][1]
+                      : ""}
                   </span>
                   <span
                     className={cn("animated", {
@@ -455,8 +460,7 @@ export default function Search({
                       </>
                     ) : (
                       <>
-                        There are no products that match the selected category &
-                        designer
+                        There are no products that match the selected filters 😔
                       </>
                     )}
                   </span>
