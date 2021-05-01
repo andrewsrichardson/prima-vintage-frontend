@@ -1,19 +1,19 @@
-import { FC } from 'react'
-import cn from 'classnames'
-import Link from 'next/link'
-import type { Product } from '@commerce/types'
-import s from './ProductCard.module.css'
-import Image, { ImageProps } from 'next/image'
-import WishlistButton from '@components/wishlist/WishlistButton'
+import { FC } from "react";
+import cn from "classnames";
+import Link from "next/link";
+import type { Product } from "@commerce/types";
+import s from "./ProductCard.module.css";
+import Image, { ImageProps } from "next/image";
+import WishlistButton from "@components/wishlist/WishlistButton";
 
 interface Props {
-  className?: string
-  product: Product
-  variant?: 'slim' | 'simple'
-  imgProps?: Omit<ImageProps, 'src'>
+  className?: string;
+  product: Product;
+  variant?: "slim" | "simple";
+  imgProps?: Omit<ImageProps, "src">;
 }
 
-const placeholderImg = '/product-img-placeholder.svg'
+const placeholderImg = "/product-img-placeholder.svg";
 
 const ProductCard: FC<Props> = ({
   className,
@@ -23,11 +23,11 @@ const ProductCard: FC<Props> = ({
   ...props
 }) => (
   <Link href={`/product/${product.slug}`} {...props}>
-    <a className={cn(s.root, { [s.simple]: variant === 'simple' }, className)}>
-      {variant === 'slim' ? (
+    <a className={cn(s.root, { [s.simple]: variant === "simple" }, className)}>
+      {variant === "slim" ? (
         <div className="relative overflow-hidden box-border">
           <div className="absolute inset-0 flex items-center justify-end mr-8 z-20">
-            <span className="bg-black text-white inline-block p-3 font-bold text-xl break-words">
+            <span className="bg-black text-white inline-block p-3 text-xl break-words">
               {product.name}
             </span>
           </div>
@@ -35,7 +35,7 @@ const ProductCard: FC<Props> = ({
             <Image
               quality="85"
               src={product.images[0].url || placeholderImg}
-              alt={product.name || 'Product Image'}
+              alt={product.name || "Product Image"}
               height={320}
               width={320}
               layout="fixed"
@@ -68,7 +68,7 @@ const ProductCard: FC<Props> = ({
           <div className={s.imageContainer}>
             {product?.images && (
               <Image
-                alt={product.name || 'Product Image'}
+                alt={product.name || "Product Image"}
                 className={s.productImage}
                 src={product.images[0].url || placeholderImg}
                 height={540}
@@ -83,6 +83,6 @@ const ProductCard: FC<Props> = ({
       )}
     </a>
   </Link>
-)
+);
 
-export default ProductCard
+export default ProductCard;

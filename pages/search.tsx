@@ -106,7 +106,7 @@ export default function Search({
         <div className="col-span-8 lg:col-span-2 order-1 lg:order-none ">
           {/* Categories */}
           <div className="relative inline-block w-full">
-            <div className="lg:hidden">
+            <div className="mt-4 lg:hidden">
               <span className="rounded-md shadow-sm">
                 <button
                   type="button"
@@ -418,14 +418,8 @@ export default function Search({
           </div>
         </div>
         {/* Products */}
-        <div
-          className="col-span-8 order-3 lg:order-none bg-violet textured"
-          style={{
-            borderLeft: "2px solid #38559c",
-            borderRight: "2px solid #38559c",
-          }}
-        >
-          {(q || activeCategory || activeBrand || activeType) && (
+        <div className="col-span-8 order-3 lg:order-none">
+          {(q || activeCategory || activeBrand || activeType || sort) && (
             <div className="p-6 transition ease-in duration-75 bg-white">
               {data ? (
                 <>

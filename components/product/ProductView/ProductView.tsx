@@ -13,6 +13,7 @@ import { useAddItem } from "@framework/cart";
 
 import { getVariant, SelectedOptions } from "../helpers";
 import WishlistButton from "@components/wishlist/WishlistButton";
+import Link from "next/link";
 
 interface Props {
   className?: string;
@@ -50,6 +51,7 @@ const ProductView: FC<Props> = ({ product }) => {
       setLoading(false);
     }
   };
+  const collections = product.collections.edges;
 
   return (
     <Container className="max-w-none w-full" clean>
@@ -81,7 +83,7 @@ const ProductView: FC<Props> = ({ product }) => {
             </div>
           </div>
 
-          <div className={s.sliderContainer}>
+          <div className={s.sliderContainer + " textured"}>
             <ProductSlider key={product.id}>
               {product.images.map((image, i) => (
                 <div key={image.url} className={s.imageContainer}>
@@ -101,41 +103,63 @@ const ProductView: FC<Props> = ({ product }) => {
         </div>
         <div className={s.sidebar}>
           <section>
-            {product.options?.map((opt) => (
-              <div className="pb-4" key={opt.displayName}>
-                <h2 className="uppercase font-medium">{opt.displayName}</h2>
-                <div className="flex flex-row py-4">
-                  {opt.values.map((v, i: number) => {
-                    const active = (choices as any)[
-                      opt.displayName.toLowerCase()
-                    ];
-
-                    return (
-                      <Swatch
-                        key={`${opt.id}-${i}`}
-                        active={v.label.toLowerCase() === active}
-                        variant={opt.displayName}
-                        color={v.hexColors ? v.hexColors[0] : ""}
-                        label={v.label}
-                        onClick={() => {
-                          setChoices((choices) => {
-                            return {
-                              ...choices,
-                              [opt.displayName.toLowerCase()]: v.label.toLowerCase(),
-                            };
-                          });
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-
-            <div className="pb-14 break-words w-full max-w-xl">
-              <Text html={product.description} />
+            <div className="pb-4" key={product.name}>
+              <h2 className="uppercase font-medium text-2xl">{product.name}</h2>
+              <h3 className="uppercase font-small text-xl">{price}</h3>
             </div>
           </section>
+          <div>
+            <h3 className="text-xl">Brand</h3>
+            <Link replace href={"/search/Type/" + product.vendor}>
+              <a className="underline-dotted">{product.vendor}</a>
+            </Link>
+          </div>
+          {collections.length > 0 && (
+            <div>
+              <h3 className="text-xl">
+                {"Collection " + (collections.length > 1 ? "s" : "")}
+              </h3>
+              <div className="flex">
+                {collections.map((col) => (
+                  <a className="mr-4">
+                    <Link
+                      replace
+                      href={"/search/" + col.node.handle}
+                      key={col.node.handle}
+                    >
+                      <a className="underline-dotted">{col.node.title}</a>
+                    </Link>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div>
+            <h3 className="text-xl">Type</h3>
+            <Link replace href={"/search/" + product.productType}>
+              <a className="underline-dotted">{product.productType}</a>
+            </Link>
+          </div>
+          <div>
+            <h3 className="text-xl">Sizing</h3>
+            <p className="text-sm">
+              All of our items are one-of-a-kind unique pieces, and estimated
+              sizing can often vary from the labelled title. All our estimates
+              are based on a 5Ft 10 male model.
+            </p>
+            <p className="text-sm">{"Label size: " + product.description}</p>
+            <p className="text-sm">
+              Our recommended size:{" "}
+              <span className="capitalize">{product.tags[0]}</span>
+            </p>
+            <h3 className="text-xl">Returns</h3>
+            <p className="text-sm">
+              We offer a 7 day returns policy on all items. Reach out to
+              contact@primavintage.co.uk for more details.
+            </p>
+          </div>
+
           <div>
             <Button
               aria-label="Add to Cart"
@@ -146,6 +170,7 @@ const ProductView: FC<Props> = ({ product }) => {
             >
               Add to Cart
             </Button>
+            <p className="text-xs mt-0 text-gray-500">{"ID: " + product.id}</p>
           </div>
         </div>
         {process.env.COMMERCE_WISHLIST_ENABLED && (

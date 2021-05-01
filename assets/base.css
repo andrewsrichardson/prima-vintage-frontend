@@ -117,7 +117,7 @@ a {
   background-image: url(/whitenoise.png);
 }
 .underline-dotted {
-  border-bottom: 3px var(--accents-8) dashed 0;
+  border-bottom: 1px var(--accents-8) dashed;
 }
 .fadeIn {
   -webkit-animation-name: fadeIn;

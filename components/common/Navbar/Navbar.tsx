@@ -5,12 +5,6 @@ import { Searchbar, UserNav, Title } from "@components/common";
 import NavbarRoot from "./NavbarRoot";
 import s from "./Navbar.module.css";
 import { useRouter } from "next/router";
-import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
-import { getConfig } from "@framework/api";
-import getSiteInfo from "@framework/common/get-site-info";
-import useSWR from "swr";
-import getAllCollections from "@framework/product/get-all-collections";
-import { getCategories } from "@framework/utils";
 
 const Navbar: FC = () => {
   const router = useRouter();
@@ -20,6 +14,13 @@ const Navbar: FC = () => {
       <Container>
         <div className="relative flex flex-row justify-between py-4 align-center md:py-6 ">
           <div className="flex items-center flex-1">
+            <div className="lg:hidden">
+              <Link href="/search">
+                <a className={s.link + " text-sm max-w-xs underline-dotted"}>
+                  Products
+                </a>
+              </Link>
+            </div>
             <nav className="hidden ml-6 space-x-8 lg:block">
               <div className={s.linkWrapper}>
                 <Link href="/search">
@@ -50,7 +51,7 @@ const Navbar: FC = () => {
           </div>
 
           <Title moving={moving} />
-          <div className="justify-center flex-1 hidden lg:flex">
+          <div className="justify-center flex-1 lg:flex">
             <Link href="/">
               <a className={s.logo} aria-label="Logo">
                 <Logo />

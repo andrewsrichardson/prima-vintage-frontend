@@ -8,6 +8,15 @@ const getProductQuery = /* GraphQL */ `
       vendor
       description
       descriptionHtml
+      tags
+      collections(first: 10) {
+        edges {
+          node {
+            handle
+            title
+          }
+        }
+      }
       options {
         id
         name
@@ -64,6 +73,6 @@ const getProductQuery = /* GraphQL */ `
       }
     }
   }
-`
+`;
 
-export default getProductQuery
+export default getProductQuery;

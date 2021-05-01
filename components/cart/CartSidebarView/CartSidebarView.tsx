@@ -1,35 +1,35 @@
-import { FC } from 'react'
-import cn from 'classnames'
-import Link from 'next/link'
-import CartItem from '../CartItem'
-import s from './CartSidebarView.module.css'
-import { Button } from '@components/ui'
-import { UserNav } from '@components/common'
-import { useUI } from '@components/ui/context'
-import { Bag, Cross, Check } from '@components/icons'
-import useCart from '@framework/cart/use-cart'
-import usePrice from '@framework/product/use-price'
+import { FC } from "react";
+import cn from "classnames";
+import Link from "next/link";
+import CartItem from "../CartItem";
+import s from "./CartSidebarView.module.css";
+import { Button } from "@components/ui";
+import { UserNav } from "@components/common";
+import { useUI } from "@components/ui/context";
+import { Bag, Cross, Check } from "@components/icons";
+import useCart from "@framework/cart/use-cart";
+import usePrice from "@framework/product/use-price";
 
 const CartSidebarView: FC = () => {
-  const { closeSidebar } = useUI()
-  const { data, isLoading, isEmpty } = useCart()
+  const { closeSidebar } = useUI();
+  const { data, isLoading, isEmpty } = useCart();
 
   const { price: subTotal } = usePrice(
     data && {
       amount: Number(data.subtotalPrice),
       currencyCode: data.currency.code,
     }
-  )
+  );
   const { price: total } = usePrice(
     data && {
       amount: Number(data.totalPrice),
       currencyCode: data.currency.code,
     }
-  )
-  const handleClose = () => closeSidebar()
+  );
+  const handleClose = () => closeSidebar();
 
-  const error = null
-  const success = null
+  const error = null;
+  const success = null;
 
   return (
     <div
@@ -59,19 +59,16 @@ const CartSidebarView: FC = () => {
           <span className="border border-dashed border-primary rounded-full flex items-center justify-center w-16 h-16 p-12 bg-secondary text-secondary">
             <Bag className="absolute" />
           </span>
-          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
-            Your cart is empty
+          <h2 className="pt-6 text-2xl font-bold tracking-wide text-center text-gray-300">
+            YOUR CART IS EMPTY
           </h2>
-          <p className="text-accents-3 px-10 text-center pt-2">
-            Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
-          </p>
         </div>
       ) : error ? (
         <div className="flex-1 px-4 flex flex-col justify-center items-center">
           <span className="border border-white rounded-full flex items-center justify-center w-16 h-16">
             <Cross width={24} height={24} />
           </span>
-          <h2 className="pt-6 text-xl font-light text-center">
+          <h2 className="pt-6 text-xl font-light text-center text-gray-300">
             We couldn’t process the purchase. Please check your card information
             and try again.
           </h2>
@@ -81,7 +78,7 @@ const CartSidebarView: FC = () => {
           <span className="border border-white rounded-full flex items-center justify-center w-16 h-16">
             <Check />
           </span>
-          <h2 className="pt-6 text-xl font-light text-center">
+          <h2 className="pt-6 text-xl font-light text-center text-gray-300">
             Thank you for your order.
           </h2>
         </div>
@@ -135,7 +132,7 @@ const CartSidebarView: FC = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CartSidebarView
+export default CartSidebarView;

@@ -1,94 +1,94 @@
-import { ChangeEvent, useEffect, useState } from 'react'
-import cn from 'classnames'
-import Image from 'next/image'
-import Link from 'next/link'
-import s from './CartItem.module.css'
-import { Trash, Plus, Minus } from '@components/icons'
-import { useUI } from '@components/ui/context'
-import type { LineItem } from '@framework/types'
-import usePrice from '@framework/product/use-price'
-import useUpdateItem from '@framework/cart/use-update-item'
-import useRemoveItem from '@framework/cart/use-remove-item'
+import { ChangeEvent, useEffect, useState } from "react";
+import cn from "classnames";
+import Image from "next/image";
+import Link from "next/link";
+import s from "./CartItem.module.css";
+import { Trash, Plus, Minus } from "@components/icons";
+import { useUI } from "@components/ui/context";
+import type { LineItem } from "@framework/types";
+import usePrice from "@framework/product/use-price";
+import useUpdateItem from "@framework/cart/use-update-item";
+import useRemoveItem from "@framework/cart/use-remove-item";
 
 type ItemOption = {
-  name: string
-  nameId: number
-  value: string
-  valueId: number
-}
+  name: string;
+  nameId: number;
+  value: string;
+  valueId: number;
+};
 
 const CartItem = ({
   item,
   currencyCode,
   ...rest
 }: {
-  item: LineItem
-  currencyCode: string
+  item: LineItem;
+  currencyCode: string;
 }) => {
-  const { closeSidebarIfPresent } = useUI()
+  const { closeSidebarIfPresent } = useUI();
 
   const { price } = usePrice({
-    amount: item.variant.price * item.quantity,
-    baseAmount: item.variant.listPrice * item.quantity,
+    amount: item.variant.price,
+    baseAmount: item.variant.listPrice,
     currencyCode,
-  })
+  });
 
-  const updateItem = useUpdateItem({ item })
-  const removeItem = useRemoveItem()
-  const [quantity, setQuantity] = useState(item.quantity)
-  const [removing, setRemoving] = useState(false)
+  const updateItem = useUpdateItem({ item });
+  const removeItem = useRemoveItem();
+  const [quantity, setQuantity] = useState(item.quantity);
+  const [removing, setRemoving] = useState(false);
 
-  const updateQuantity = async (val: number) => {
-    await updateItem({ quantity: val })
-  }
+  // const updateQuantity = async (val: number) => {
+  //   await updateItem({ quantity: val })
+  // }
 
-  const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = Number(e.target.value)
+  // const handleQuantity = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const val = Number(e.target.value)
 
-    if (Number.isInteger(val) && val >= 0) {
-      setQuantity(Number(e.target.value))
-    }
-  }
-  const handleBlur = () => {
-    const val = Number(quantity)
+  //   if (Number.isInteger(val) && val >= 0) {
+  //     setQuantity(Number(e.target.value))
+  //   }
+  // }
+  // const handleBlur = () => {
+  //   const val = Number(quantity)
 
-    if (val !== item.quantity) {
-      updateQuantity(val)
-    }
-  }
-  const increaseQuantity = (n = 1) => {
-    const val = Number(quantity) + n
+  //   if (val !== item.quantity) {
+  //     updateQuantity(val)
+  //   }
+  // }
+  // const increaseQuantity = (n = 1) => {
+  //   const val = Number(quantity) + n
 
-    if (Number.isInteger(val) && val >= 0) {
-      setQuantity(val)
-      updateQuantity(val)
-    }
-  }
+  //   if (Number.isInteger(val) && val >= 0) {
+  //     setQuantity(val)
+  //     updateQuantity(val)
+  //   }
+  // }
   const handleRemove = async () => {
-    setRemoving(true)
+    setRemoving(true);
 
     try {
       // If this action succeeds then there's no need to do `setRemoving(true)`
       // because the component will be removed from the view
-      await removeItem(item)
+      await removeItem(item);
     } catch (error) {
-      setRemoving(false)
+      setRemoving(false);
     }
-  }
+  };
   // TODO: Add a type for this
-  const options = (item as any).options
+  const options = (item as any).options;
 
-  useEffect(() => {
-    // Reset the quantity state if the item quantity changes
-    if (item.quantity !== Number(quantity)) {
-      setQuantity(item.quantity)
-    }
-  }, [item.quantity])
+  // useEffect(() => {
+  //   // Reset the quantity state if the item quantity changes
+  //   if (item.quantity !== Number(quantity)) {
+  //     setQuantity(item.quantity)
+  //   }
+  // }, [item.quantity])
 
   return (
     <li
-      className={cn('flex flex-row space-x-8 py-8', {
-        'opacity-75 pointer-events-none': removing,
+      className={cn("flex flex-row space-x-8 py-8", {
+        "opacity-75 pointer-events-none": removing,
       })}
       {...rest}
     >
@@ -114,38 +114,6 @@ const CartItem = ({
             {item.name}
           </span>
         </Link>
-        {options && options.length > 0 ? (
-          <div className="">
-            {options.map((option: ItemOption, i: number) => (
-              <span
-                key={`${item.id}-${option.name}`}
-                className="text-sm font-semibold text-accents-7"
-              >
-                {option.value}
-                {i === options.length - 1 ? '' : ', '}
-              </span>
-            ))}
-          </div>
-        ) : null}
-        <div className="flex items-center mt-3">
-          <button type="button" onClick={() => increaseQuantity(-1)}>
-            <Minus width={18} height={18} />
-          </button>
-          <label>
-            <input
-              type="number"
-              max={99}
-              min={0}
-              className={s.quantity}
-              value={quantity}
-              onChange={handleQuantity}
-              onBlur={handleBlur}
-            />
-          </label>
-          <button type="button" onClick={() => increaseQuantity(1)}>
-            <Plus width={18} height={18} />
-          </button>
-        </div>
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
         <span>{price}</span>
@@ -157,7 +125,7 @@ const CartItem = ({
         </button>
       </div>
     </li>
-  )
-}
+  );
+};
 
-export default CartItem
+export default CartItem;

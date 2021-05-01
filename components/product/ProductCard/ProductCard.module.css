@@ -75,14 +75,14 @@
 
 .squareBg:before {
   @apply transition ease-in-out duration-500 bg-repeat-space w-full h-full block;
-  background-image: url('/bg-products.svg');
-  content: '';
+  background-image: url("/bg-products.svg");
+  content: "";
 }
 
 .simple {
   & .squareBg {
     @apply bg-accents-0 !important;
-    background-image: url('/bg-products.svg');
+    background-image: url("/bg-products.svg");
   }
 
   & .productTitle {
@@ -105,7 +105,7 @@
   letter-spacing: 0.4px;
 
   & span {
-    @apply py-4 px-6 bg-primary text-primary font-bold;
+    @apply py-4 px-6 bg-primary text-primary;
     font-size: inherit;
     letter-spacing: inherit;
     box-decoration-break: clone;
