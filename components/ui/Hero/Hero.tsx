@@ -14,7 +14,10 @@ interface Props {
 
 const Hero: FC<Props> = ({ headline, description }) => {
   return (
-    <div className="bg-purple textured">
+    <div className="bg-purple relative">
+      <div className="w-full h-full absolute opacity-10 pointer-events-none">
+        <Image src="/dc-distressed-bg-1.jpg" layout="fill" />
+      </div>
       <Container>
         <div className={s.root}>
           <h2 className="text-4xl leading-10 font-extrabold text-white sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">
@@ -35,7 +38,7 @@ const Hero: FC<Props> = ({ headline, description }) => {
             </p>
             <Link href="/blog">
               <a className="text-white pt-3 font-bold hover:underline flex flex-row cursor-pointer w-max-content">
-                Read it here
+                Read the ethos
                 <RightArrow width="20" heigh="20" className="ml-1" />
               </a>
             </Link>

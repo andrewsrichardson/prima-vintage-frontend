@@ -17,14 +17,14 @@ const Navbar: FC = () => {
             <div className="lg:hidden">
               <Link href="/search">
                 <a className={s.link + " text-sm max-w-xs underline-dotted"}>
-                  Products
+                  PRODUCTS
                 </a>
               </Link>
             </div>
             <nav className="hidden ml-6 space-x-8 lg:block">
               <div className={s.linkWrapper}>
                 <Link href="/search">
-                  <a className={s.link}>All</a>
+                  <a className={s.link}>ALL</a>
                 </Link>
                 {/* <div className={s.dropdownWrapper + " textured"}>
                   <h1>test</h1>
@@ -33,18 +33,18 @@ const Navbar: FC = () => {
 
               <a className={"hover-link" + " " + s.linkAll}>
                 <Link href="/search?sort=latest-desc">
-                  <a className="text-link">New In</a>
+                  <a className="text-link">NEW IN</a>
                 </Link>
               </a>
               <a className="hover-link">
                 <Link href="/search/sale">
-                  <a className="text-link">Sale</a>
+                  <a className="text-link">SALE</a>
                 </Link>
               </a>
 
               <a className="hover-link">
                 <Link href="/search/prima-collection">
-                  <a className="text-link">Prima Collection</a>
+                  <a className="text-link">PRIMA COLLECTION</a>
                 </Link>
               </a>
             </nav>

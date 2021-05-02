@@ -120,7 +120,7 @@ export default function Home({
           justifyContent: "space-around",
           overflow: "hidden",
         }}
-        className={"textured"}
+        className={"textured bg-violet"}
       >
         <div
           style={{
@@ -130,6 +130,7 @@ export default function Home({
             display: "flex",
             flexDirection: "column",
             justifyContent: "end",
+            filter: "blur(3px)",
           }}
         >
           <Image
@@ -158,8 +159,7 @@ export default function Home({
 
       <Hero
         headline="Sustainable garms. Affordable Prices."
-        description="
-        Prima Vintage is committed to bringing the retro clothing community the freshest ethically-sourced garms. "
+        description="Prima Vintage is committed to bringing the retro clothing community the freshest ethically-sourced garms. "
       />
       <Grid layout="B">
         {products.slice(0, 3).map((product, i) => (

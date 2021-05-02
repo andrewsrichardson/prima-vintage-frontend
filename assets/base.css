@@ -116,6 +116,9 @@ a {
 .textured {
   background-image: url(/whitenoise.png);
 }
+.distressed {
+  background-image: url(/dc-distressed-bg-1.jpeg);
+}
 .underline-dotted {
   border-bottom: 1px var(--accents-8) dashed;
 }
