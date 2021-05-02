@@ -25,13 +25,14 @@ const NavbarRoot: FC = ({ children }) => {
   }, [hasScrolled]);
   const router = useRouter();
   const colour = "bg-violet";
+  const moving = router.asPath === "/" ? true : false;
 
   return (
     <div
       className={cn(s.root, colour, "textured", {
         "shadow-magical": hasScrolled,
       })}
-      style={{ borderBottom: "2px solid #38559c" }}
+      style={{ borderBottom: moving ? "2px solid #38559c" : "0px" }}
     >
       {children}
     </div>

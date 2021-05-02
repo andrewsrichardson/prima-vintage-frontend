@@ -17,7 +17,7 @@ edges {
         currencyCode
       }
     }
-    images(first: 1) {
+    images(first: 5) {
       pageInfo {
         hasNextPage
         hasPreviousPage

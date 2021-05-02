@@ -1,4 +1,4 @@
-import { Product } from '@commerce/types'
+import { Product } from "@commerce/types";
 
 import {
   Product as ShopifyProduct,
@@ -9,16 +9,16 @@ import {
   ProductVariantConnection,
   MoneyV2,
   ProductOption,
-} from '../schema'
+} from "../schema";
 
-import type { Cart, LineItem } from '../types'
+import type { Cart, LineItem } from "../types";
 
 const money = ({ amount, currencyCode }: MoneyV2) => {
   return {
     value: +amount,
     currencyCode,
-  }
-}
+  };
+};
 
 const normalizeProductOption = ({
   id,
@@ -26,29 +26,29 @@ const normalizeProductOption = ({
   values,
 }: ProductOption) => {
   return {
-    __typename: 'MultipleChoiceOption',
+    __typename: "MultipleChoiceOption",
     id,
     displayName,
     values: values.map((value) => {
       let output: any = {
         label: value,
-      }
-      if (displayName === 'Color') {
+      };
+      if (displayName === "Color") {
         output = {
           ...output,
           hexColors: [value],
-        }
+        };
       }
-      return output
+      return output;
     }),
-  }
-}
+  };
+};
 
 const normalizeProductImages = ({ edges }: ImageConnection) =>
   edges?.map(({ node: { originalSrc: url, ...rest } }) => ({
     url,
     ...rest,
-  }))
+  }));
 
 const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
   return edges?.map(
@@ -69,8 +69,8 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
         })
       ),
     })
-  )
-}
+  );
+};
 
 export function normalizeProduct(productNode: ShopifyProduct): Product {
   const {
@@ -84,7 +84,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     priceRange,
     options,
     ...rest
-  } = productNode
+  } = productNode;
 
   const product = {
     id,
@@ -92,22 +92,22 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     vendor,
     description,
     path: `/${handle}`,
-    slug: handle?.replace(/^\/+|\/+$/g, ''),
+    slug: handle?.replace(/^\/+|\/+$/g, ""),
     price: money(priceRange?.minVariantPrice),
     images: normalizeProductImages(images),
     variants: variants ? normalizeProductVariants(variants) : [],
     options: options ? options.map((o) => normalizeProductOption(o)) : [],
     ...rest,
-  }
+  };
 
-  return product
+  return product;
 }
 
 export function normalizeCart(checkout: Checkout): Cart {
   return {
     id: checkout.id,
-    customerId: '',
-    email: '',
+    customerId: "",
+    email: "",
     createdAt: checkout.createdAt,
     currency: {
       code: checkout.totalPriceV2?.currencyCode,
@@ -118,7 +118,7 @@ export function normalizeCart(checkout: Checkout): Cart {
     subtotalPrice: +checkout.subtotalPriceV2?.amount,
     totalPrice: checkout.totalPriceV2?.amount,
     discounts: [],
-  }
+  };
 }
 
 function normalizeLineItem({
@@ -132,7 +132,7 @@ function normalizeLineItem({
     quantity,
     variant: {
       id: String(variant?.id),
-      sku: variant?.sku ?? '',
+      sku: variant?.sku ?? "",
       name: variant?.title!,
       image: {
         url: variant?.image?.originalSrc,
@@ -141,12 +141,12 @@ function normalizeLineItem({
       price: variant?.priceV2?.amount,
       listPrice: variant?.compareAtPriceV2?.amount,
     },
-    path: '',
+    path: "",
     discounts: [],
     options: [
       {
         value: variant?.title,
       },
     ],
-  }
+  };
 }
