@@ -14,7 +14,6 @@ export default function MyApp({ Component, pageProps }) {
   const Layout = (Component as any).Layout || Noop;
 
   const router = useRouter();
-
   useEffect(() => {
     document.body.classList?.remove("loading");
   }, []);

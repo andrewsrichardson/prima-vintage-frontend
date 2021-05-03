@@ -23,7 +23,6 @@ const ProductCard: FC<Props> = ({
   ...props
 }) => {
   const [hover, setHover] = useState(false);
-  console.log(product);
   return (
     <Link href={`/product/${product.slug}`} {...props}>
       <a

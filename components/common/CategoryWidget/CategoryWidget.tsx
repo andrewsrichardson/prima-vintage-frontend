@@ -40,7 +40,7 @@ const CategoryWidget: FC<Props> = ({ image, direction, path }) => {
         {({ left }) => (
           <div className="flex flex-col md:flex-row">
             {direction === "right" && (
-              <div className="flex flex-col justify-center">
+              <div className="flex-col-reverse flex md:flex-col justify-center">
                 <Link href={path}>
                   <a>
                     <h2 className="text-3xl bg-violet">Shop</h2>
@@ -54,7 +54,12 @@ const CategoryWidget: FC<Props> = ({ image, direction, path }) => {
             <div style={{ position: "relative", left: left }}>
               <Link href={path}>
                 <div className="cursor-pointer">
-                  <Image src={image} width="400px" height="600px" />
+                  <Image
+                    src={image}
+                    width="800px"
+                    height="529.8px"
+                    layout="intrinsic"
+                  />
                 </div>
               </Link>
             </div>

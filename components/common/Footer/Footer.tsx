@@ -8,6 +8,7 @@ import { Github } from "@components/icons";
 import { Logo, Container } from "@components/ui";
 import { I18nWidget } from "@components/common";
 import s from "./Footer.module.css";
+import useNav from "@commerce/nav/use-nav";
 
 interface Props {
   className?: string;
@@ -20,6 +21,11 @@ const LEGAL_PAGES = ["terms-of-use", "shipping-returns", "privacy-policy"];
 const Footer: FC<Props> = ({ className, pages }) => {
   const { sitePages, legalPages } = usePages(pages);
   const rootClassName = cn(className);
+  // let navData = [];
+  const { data: navData } = useNav();
+  // if (data) navData = data;
+
+  console.log(navData);
 
   return (
     <footer className={rootClassName}>
@@ -34,71 +40,115 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 >
                   <Logo />
                 </span>
-                <span>Prima Vintage</span>
+                <h2 className="text-6xl">
+                  PRIMA <br />
+                  VINTAGE
+                </h2>
               </a>
             </Link>
           </div>
           <div className="col-span-1 lg:col-span-2">
             <ul className="flex flex-initial flex-col md:flex-1">
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/">
-                  <a className="text-primary hover:border-dotted transition ease-in-out duration-150">
-                    Home
-                  </a>
-                </Link>
+              {/* <li className="py-3 md:py-0 md:pb-4">
+              <Link href="/">
+                <a className="text-primary hover:border-dotted transition ease-in-out duration-150">
+                  Home
+                </a>
+              </Link>
+            </li>
+            <li className="py-3 md:py-0 md:pb-4">
+              <Link href="/">
+                <a className="text-primary hover:underline transition ease-in-out duration-150">
+                  Careers
+                </a>
+              </Link>
+            </li>
+            <li className="py-3 md:py-0 md:pb-4">
+              <Link href="/blog">
+                <a className="text-primary hover:underline transition ease-in-out duration-150">
+                  Blog
+                </a>
+              </Link>
+            </li> */}
+              <li>
+                <h3 className="text-lg py-3 md:py-0 md:pb-2">Collections</h3>
               </li>
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/">
-                  <a className="text-primary hover:underline transition ease-in-out duration-150">
-                    Careers
-                  </a>
-                </Link>
-              </li>
-              <li className="py-3 md:py-0 md:pb-4">
-                <Link href="/blog">
-                  <a className="text-primary hover:underline transition ease-in-out duration-150">
-                    Blog
-                  </a>
-                </Link>
-              </li>
-              {sitePages.map((page) => (
-                <li key={page.url} className="py-3 md:py-0 md:pb-4">
-                  <Link href={page.url!}>
-                    <a className="text-primary hover:underline transition ease-in-out duration-150">
-                      {page.name}
-                    </a>
-                  </Link>
-                </li>
-              ))}
+              {navData &&
+                navData?.collections.map((page) => (
+                  <li
+                    key={page.handle}
+                    className="py-3 md:py-0 md:pb-2 text-sm"
+                  >
+                    <Link href={"/" + page.handle}>
+                      <a className="text-primary hover:underline transition ease-in-out duration-150 italic">
+                        {page.title}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
           <div className="col-span-1 lg:col-span-2">
             <ul className="flex flex-initial flex-col md:flex-1">
-              {legalPages.map((page) => (
-                <li key={page.url} className="py-3 md:py-0 md:pb-4">
-                  <Link href={page.url!}>
-                    <a className="text-primary hover:underline transition ease-in-out duration-150">
-                      {page.name}
-                    </a>
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <h3 className="text-lg py-3 md:py-0 md:pb-2">Types</h3>
+              </li>
+              {navData &&
+                navData?.types.map((type) => (
+                  <li key={type} className="py-3 md:py-0 md:pb-2 text-sm">
+                    <Link href={"/search/type/" + type}>
+                      <a className="text-primary hover:underline transition ease-in-out duration-150 italic capitalize">
+                        {type}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
-          <div className="col-span-1 lg:col-span-6 flex items-start lg:justify-end text-primary">
-            <div className="flex space-x-6 items-center h-10">
-              <a
-                aria-label="Github Repository"
-                href="https://github.com/andrewsrichardson"
-                className={s.link}
-              >
-                <Github />
-              </a>
-              <I18nWidget />
+          <div className="col-span-1 lg:col-span-2">
+            <ul className="flex flex-initial flex-col md:flex-1">
+              <li>
+                <h3 className="text-lg py-3 md:py-0 md:pb-2">Brands</h3>
+              </li>
+              {navData &&
+                navData?.brands.map((brand) => (
+                  <li key={brand} className="py-3 md:py-0 md:pb-2 text-sm">
+                    <Link href={"/search/designers/" + brand}>
+                      <a className="text-primary hover:underline transition ease-in-out duration-150 italic capitalize">
+                        {brand}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+            <div className="col-span-1 lg:col-span-2">
+              <ul className="flex flex-initial flex-col md:flex-1">
+                {legalPages.map((page) => (
+                  <li key={page.url} className="py-3 md:py-0 md:pb-4">
+                    <Link href={page.url!}>
+                      <a className="text-primary hover:underline transition ease-in-out duration-150">
+                        {page.name}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
+          {/* <div className="col-span-1 lg:col-span-6 flex items-start lg:justify-end text-primary">
+          <div className="flex space-x-6 items-center h-10">
+            <a
+              aria-label="Github Repository"
+              href="https://github.com/andrewsrichardson"
+              className={s.link}
+            >
+              <Github />
+            </a>
+            <I18nWidget />
+          </div>
+        </div> */}
         </div>
-        <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4">
+        <div className="pb-12 flex flex-col md:flex-row justify-between items-center space-y-4">
           <div>
             <span>&copy; 2021 Prima Vintage. All rights reserved.</span>
           </div>
@@ -109,7 +159,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               href="https://duplank.com"
               aria-label="duplank.com Link"
               target="_blank"
-              className="text-primary"
+              className="text-primary  underline-dotted"
             >
               duplank
             </a>

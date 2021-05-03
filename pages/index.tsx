@@ -46,16 +46,17 @@ export default function Home({
   return (
     <>
       <div
-        className="bg-violet textured"
+        className="bg-violet textured relative"
         style={{
           width: "100%",
-          height: "1080px",
+          height: "90vh",
+          maxHeight: "1080px",
           display: "flex",
           justifyContent: "space-between",
         }}
       >
         <div
-          className="hidden md:block"
+          className="hidden md:block z-10 bg-violet textured"
           style={{
             borderRight: "24px solid #38559c",
             width: "15%",
@@ -65,15 +66,25 @@ export default function Home({
           {rows.map((i) => (
             <h2
               key={"prima-" + i}
-              style={{ position: "relative", left: Math.random() * 30 }}
-              className="text-8xl italic"
+              style={{ left: Math.random() * 30 }}
+              className="text-8xl italic relative"
             >
               PRIMA
             </h2>
           ))}
         </div>{" "}
+        <Image
+          src="/rooftop-andrew.jpg"
+          width="1920px"
+          height="1080px"
+          priority
+          objectFit="cover"
+          objectPosition="top"
+          className="z-0 overlay"
+          layout="intrinsic"
+        />
         <div
-          className="hidden md:block"
+          className="hidden md:block bg-violet textured z-10"
           style={{
             borderLeft: "24px solid #38559c",
             width: "15%",
@@ -90,12 +101,6 @@ export default function Home({
             </h2>
           ))}
         </div>
-        {/* <Image
-          src="/sitting.jpg"
-          width="1920px"
-          height="1080px"
-          layout="intrinsic"
-        /> */}
       </div>
       <Marquee variant="secondary">
         {products.slice(0, 3).map((product, i) => (
@@ -114,7 +119,8 @@ export default function Home({
         style={{
           width: "100%",
           position: "relative",
-          height: "1440px",
+          height: "200vh",
+          maxHeight: "1440px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-around",
@@ -141,16 +147,16 @@ export default function Home({
             className="absolute"
           />
         </div>
-        <div className={"relative md:inset-x-1/2"}>
+        <div className={"relative md:inset-x-1/4"}>
           <CategoryWidget
-            image="/mens-cover.jpg"
+            image="/rooftop-george.jpg"
             direction="left"
             path={"/search?sort=latest-desc"}
           />
         </div>
-        <div className={"relative md:inset-x-1/2"}>
+        <div className={"relative md:inset-x-1/5"}>
           <CategoryWidget
-            image="/womens-cover.jpg"
+            image="/front-jaina.jpg"
             direction="right"
             path={"/search/prima-collection"}
           />

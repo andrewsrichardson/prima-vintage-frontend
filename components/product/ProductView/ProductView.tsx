@@ -14,6 +14,7 @@ import { useAddItem } from "@framework/cart";
 import { getVariant, SelectedOptions } from "../helpers";
 import WishlistButton from "@components/wishlist/WishlistButton";
 import Link from "next/link";
+import Accordion from "@components/common/Accordion";
 
 interface Props {
   className?: string;
@@ -35,6 +36,28 @@ const ProductView: FC<Props> = ({ product }) => {
     color: null,
   });
 
+  const panels = [
+    {
+      label: "Details",
+      content: `All of our items are one-of-a-kind unique pieces, and estimated sizing can often vary from the labelled title. All our estimates are based on a 5Ft 10 male model.\nLabel size: ${product.description}, our recommended size: ${product.tags[0]} `,
+    },
+    {
+      label: "Shipping and Returns",
+      content:
+        "We offer a 7 day returns policy on all items. Reach out to contact@primavintage.co.uk for more details.",
+    },
+    {
+      label: "Wear and Tear",
+      content:
+        "It's vintage. Wear and tear are par for the course. Unfortunately some items will have picked up some nicks during their time, and we try our best to photograph them to give you the heads up. But hey - if it was perfect, it wouldn't be vintage, right? Check out the details section for a run down of this item, and dont hesitate to get in touch if things aren't as spotless as you'd like.",
+    },
+    {
+      label: "Our Ethos",
+      content:
+        "We are committed to helping the planet in every way we can - from selling vintage clothing to cut down on fast fashion, to using recycled packaging and offsetting our carbon footprint",
+    },
+  ];
+
   // Select the correct variant based on choices
   const variant = getVariant(product, choices);
 
@@ -54,7 +77,10 @@ const ProductView: FC<Props> = ({ product }) => {
   const collections = product.collections.edges;
 
   return (
-    <Container className="max-w-none w-full" clean>
+    <Container
+      className="max-w-none w-full checked-xlarge textured bg-violet"
+      clean
+    >
       <NextSeo
         title={product.name}
         description={product.description}
@@ -72,115 +98,121 @@ const ProductView: FC<Props> = ({ product }) => {
           ],
         }}
       />
-      <div className={cn(s.root, "fit")}>
-        <div className={cn(s.productDisplay, "fit")}>
-          <div className={s.nameBox}>
-            <h1 className={s.name}>{product.name}</h1>
-            <div className={s.price}>
-              {price}
-              {` `}
-              {product.price?.currencyCode}
-            </div>
-          </div>
-
-          <div className={s.sliderContainer + " textured"}>
-            <ProductSlider key={product.id}>
-              {product.images.map((image, i) => (
-                <div key={image.url} className={s.imageContainer}>
-                  <Image
-                    className={s.img}
-                    src={image.url!}
-                    alt={image.alt || "Product Image"}
-                    width={1050}
-                    height={1050}
-                    priority={i === 0}
-                    quality="85"
-                  />
-                </div>
-              ))}
-            </ProductSlider>
-          </div>
-        </div>
-        <div className={s.sidebar}>
-          <section>
-            <div className="pb-4" key={product.name}>
-              <h2 className="uppercase font-medium text-2xl">{product.name}</h2>
-              <h3 className="uppercase font-small text-xl">{price}</h3>
-            </div>
-          </section>
-          <div>
-            <h3 className="text-xl">Brand</h3>
-            <Link replace href={"/search/Type/" + product.vendor}>
-              <a className="underline-dotted">{product.vendor}</a>
-            </Link>
-          </div>
-          {collections.length > 0 && (
-            <div>
-              <h3 className="text-xl">
-                {"Collection " + (collections.length > 1 ? "s" : "")}
-              </h3>
-              <div className="flex">
-                {collections.map((col) => (
-                  <a className="mr-4">
-                    <Link
-                      replace
-                      href={"/search/" + col.node.handle}
-                      key={col.node.handle}
-                    >
-                      <a className="underline-dotted">{col.node.title}</a>
-                    </Link>
-                  </a>
-                ))}
+      <Container>
+        <div className={cn(s.root, "fit", "bg-white")}>
+          <div className={cn(s.productDisplay, "fit")}>
+            <div className={s.nameBox}>
+              <h1 className={s.name}>{product.name}</h1>
+              <div className={s.price}>
+                {price}
+                {` `}
+                {product.price?.currencyCode}
               </div>
             </div>
-          )}
 
-          <div>
-            <h3 className="text-xl">Type</h3>
-            <Link replace href={"/search/" + product.productType}>
-              <a className="underline-dotted">{product.productType}</a>
-            </Link>
+            <div className={s.sliderContainer + " textured"}>
+              <ProductSlider key={product.id}>
+                {product.images.map((image, i) => (
+                  <div key={image.url} className={s.imageContainer}>
+                    <Image
+                      className={s.img}
+                      src={image.url!}
+                      alt={image.alt || "Product Image"}
+                      width={1050}
+                      height={1050}
+                      priority={i === 0}
+                      quality="85"
+                    />
+                  </div>
+                ))}
+              </ProductSlider>
+            </div>
           </div>
-          <div>
-            <h3 className="text-xl">Sizing</h3>
-            <p className="text-sm">
-              All of our items are one-of-a-kind unique pieces, and estimated
-              sizing can often vary from the labelled title. All our estimates
-              are based on a 5Ft 10 male model.
-            </p>
-            <p className="text-sm">{"Label size: " + product.description}</p>
-            <p className="text-sm">
-              Our recommended size:{" "}
-              <span className="capitalize">{product.tags[0]}</span>
-            </p>
-            <h3 className="text-xl">Returns</h3>
-            <p className="text-sm">
-              We offer a 7 day returns policy on all items. Reach out to
-              contact@primavintage.co.uk for more details.
-            </p>
-          </div>
-
-          <div>
-            <Button
-              aria-label="Add to Cart"
-              type="button"
-              className={s.button}
-              onClick={addToCart}
-              loading={loading}
-            >
-              Add to Cart
-            </Button>
+          <div className={s.sidebar}>
+            <div>
+              <section>
+                <div className="pb-4" key={product.name}>
+                  <h2 className="uppercase font-medium text-4xl">
+                    {product.name}
+                  </h2>
+                  <h3 className="uppercase font-small mt-2 text-3xl">
+                    {price}
+                  </h3>
+                </div>
+              </section>
+              <section className="mb-4 flex justify-between lg:max-w-xl">
+                <div>
+                  <h3 className="text-md md:text-xl">Size</h3>
+                  <p className="capitalize">{product.tags[0]}</p>
+                </div>
+                <div>
+                  <h3 className="text-md md:text-xl">Brand</h3>
+                  <Link replace href={"/search/Type/" + product.vendor}>
+                    <a className="underline-dotted">{product.vendor}</a>
+                  </Link>
+                </div>
+                <div>
+                  <h3 className="text-md md:text-xl">Type</h3>
+                  <Link replace href={"/search/type/" + product.productType}>
+                    <a className="underline-dotted">{product.productType}</a>
+                  </Link>
+                </div>
+                {collections.length > 0 && (
+                  <div>
+                    <h3 className="text-md md:text-xl">
+                      {"Collection " + (collections.length > 1 ? "s" : "")}
+                    </h3>
+                    <div className="flex">
+                      {collections.map((col) => (
+                        <a className="mr-4">
+                          <Link
+                            replace
+                            href={"/search/" + col.node.handle}
+                            key={col.node.handle}
+                          >
+                            <a className="underline-dotted">{col.node.title}</a>
+                          </Link>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </section>
+              <Button
+                aria-label="Add to Cart"
+                type="button"
+                className={s.button}
+                onClick={addToCart}
+                loading={loading}
+              >
+                Add to Cart
+              </Button>
+            </div>
+            <Accordion panels={panels} />
+            {/* <div>
+              <h3 className="text-xl">Sizing</h3>
+              <p className="text-sm">
+                All of our items are one-of-a-kind unique pieces, and estimated
+                sizing can often vary from the labelled title. All our estimates
+                are based on a 5Ft 10 male model.
+              </p>
+              <p className="text-sm">{"Label size: " + product.description}</p>
+              <p className="text-sm">
+                Our recommended size:{" "}
+                <span className="capitalize">{product.tags[0]}</span>
+              </p>
+            </div> */}
             <p className="text-xs mt-0 text-gray-500">{"ID: " + product.id}</p>
           </div>
+          {process.env.COMMERCE_WISHLIST_ENABLED && (
+            <WishlistButton
+              className={s.wishlistButton}
+              productId={product.id}
+              variant={product.variants[0]! as any}
+            />
+          )}
         </div>
-        {process.env.COMMERCE_WISHLIST_ENABLED && (
-          <WishlistButton
-            className={s.wishlistButton}
-            productId={product.id}
-            variant={product.variants[0]! as any}
-          />
-        )}
-      </div>
+      </Container>
     </Container>
   );
 };

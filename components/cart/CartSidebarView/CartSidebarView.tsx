@@ -13,7 +13,6 @@ import usePrice from "@framework/product/use-price";
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI();
   const { data, isLoading, isEmpty } = useCart();
-
   const { price: subTotal } = usePrice(
     data && {
       amount: Number(data.subtotalPrice),
