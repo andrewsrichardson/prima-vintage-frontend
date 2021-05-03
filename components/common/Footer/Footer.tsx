@@ -21,11 +21,9 @@ const LEGAL_PAGES = ["terms-of-use", "shipping-returns", "privacy-policy"];
 const Footer: FC<Props> = ({ className, pages }) => {
   const { sitePages, legalPages } = usePages(pages);
   const rootClassName = cn(className);
-  // let navData = [];
-  const { data: navData } = useNav();
-  // if (data) navData = data;
-
-  console.log(navData);
+  let navData: any = {};
+  const { data } = useNav();
+  if (data) navData = data;
 
   return (
     <footer className={rootClassName}>
@@ -74,7 +72,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 <h3 className="text-lg py-3 md:py-0 md:pb-2">Collections</h3>
               </li>
               {navData &&
-                navData?.collections.map((page) => (
+                navData?.collections?.map((page) => (
                   <li
                     key={page.handle}
                     className="py-3 md:py-0 md:pb-2 text-sm"
@@ -94,7 +92,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 <h3 className="text-lg py-3 md:py-0 md:pb-2">Types</h3>
               </li>
               {navData &&
-                navData?.types.map((type) => (
+                navData?.types?.map((type) => (
                   <li key={type} className="py-3 md:py-0 md:pb-2 text-sm">
                     <Link href={"/search/type/" + type}>
                       <a className="text-primary hover:underline transition ease-in-out duration-150 italic capitalize">
@@ -111,7 +109,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 <h3 className="text-lg py-3 md:py-0 md:pb-2">Brands</h3>
               </li>
               {navData &&
-                navData?.brands.map((brand) => (
+                navData?.brands?.map((brand) => (
                   <li key={brand} className="py-3 md:py-0 md:pb-2 text-sm">
                     <Link href={"/search/designers/" + brand}>
                       <a className="text-primary hover:underline transition ease-in-out duration-150 italic capitalize">
