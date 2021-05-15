@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import s from "./accordion.module.css";
+import s from "./Accordion.module.css";
 
 const Panel = ({ label, content, activeTab, index, activateTab }) => {
   const [height, setHeight] = useState(0);
