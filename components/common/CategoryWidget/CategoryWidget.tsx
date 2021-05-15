@@ -17,7 +17,7 @@ const CategoryWidget: FC<Props> = ({ image, direction, path }) => {
   const { width, height } = useWindowDimensions();
 
   let ogFont = 5;
-  let scrollW = -10;
+  let scrollW = 0;
   if (width >= 900) {
     ogFont = 10;
     scrollW = -scrollW;
@@ -27,7 +27,7 @@ const CategoryWidget: FC<Props> = ({ image, direction, path }) => {
   }
   if (width >= 1920) {
     ogFont = 8;
-    scrollW = 100;
+    scrollW = 50;
   }
   const percent = scrollY / height;
   return (
@@ -40,11 +40,13 @@ const CategoryWidget: FC<Props> = ({ image, direction, path }) => {
         {({ left }) => (
           <div className="flex flex-col md:flex-row">
             {direction === "right" && (
-              <div className="flex-col-reverse flex md:flex-col justify-center">
+              <div className="flex flex-col justify-center">
                 <Link href={path}>
                   <a>
                     <h2 className="text-3xl bg-violet">Shop</h2>
-                    <h1 className={`text-${ogFont}xl bg-violet border`}>
+                    <h1
+                      className={`text-${ogFont}xl bg-violet border uppercase`}
+                    >
                       Prima <br /> Collection
                     </h1>
                   </a>
@@ -54,6 +56,9 @@ const CategoryWidget: FC<Props> = ({ image, direction, path }) => {
             <div style={{ position: "relative", left: left }}>
               <Link href={path}>
                 <div className="cursor-pointer">
+                  <div className="w-full h-full absolute opacity-20 pointer-events-none z-10">
+                    <Image src="/dc-distressed-bg-1.jpg" layout="fill" />
+                  </div>
                   <Image
                     src={image}
                     width="800px"
@@ -68,8 +73,10 @@ const CategoryWidget: FC<Props> = ({ image, direction, path }) => {
                 <Link href={path}>
                   <a>
                     <h2 className="text-3xl bg-violet">Shop</h2>
-                    <h1 className={`text-${ogFont}xl bg-violet border`}>
-                      New In
+                    <h1
+                      className={`text-${ogFont}xl bg-violet border uppercase`}
+                    >
+                      New &nbsp; In
                     </h1>
                   </a>
                 </Link>

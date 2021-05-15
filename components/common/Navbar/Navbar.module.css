@@ -2,20 +2,20 @@
   @apply sticky top-0 z-40 transition-all duration-150;
 }
 
-.linkWrapper {
-  display: inline-block !important;
-  position: absolute;
-  width: 80px;
-  height: 90px;
-}
-
 .link {
-  @apply inline-flex items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer;
+  @apply inline-block items-center text-primary leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-center;
+  min-width: 100px;
+  padding: 1px;
+  border: 2px solid var(--accents-8);
+  border-left: 0px;
+  text-align: center;
 }
 .linkAll {
   margin-left: 80px !important;
 }
-
+.borderleft {
+  border-left: 2px solid var(--accents-8);
+}
 .dropdownWrapper {
   position: fixed;
   height: 400px;
