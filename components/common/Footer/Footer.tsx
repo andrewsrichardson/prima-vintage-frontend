@@ -21,17 +21,15 @@ const LEGAL_PAGES = ["terms-of-use", "shipping-returns", "privacy-policy"];
 const Footer: FC<Props> = ({ className, pages }) => {
   const { sitePages, legalPages } = usePages(pages);
   const rootClassName = cn(className);
-  // let navData = [];
-  const { data: navData } = useNav();
-  // if (data) navData = data;
-
-  console.log(navData);
+  let navData: any = {};
+  const { data } = useNav();
+  if (data) navData = data;
 
   return (
     <footer className={rootClassName}>
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accents-2 py-12 text-primary bg-primary transition-colors duration-150">
-          <div className="col-span-1 lg:col-span-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-8 border-b border-accents-2 py-12 text-primary bg-primary transition-colors duration-150">
+          <div className="col-span-2">
             <Link href="/">
               <a className="flex flex-initial items-center font-bold md:mr-24">
                 <span
@@ -47,7 +45,8 @@ const Footer: FC<Props> = ({ className, pages }) => {
               </a>
             </Link>
           </div>
-          <div className="col-span-1 lg:col-span-2">
+          <div className="col-span-1 md:col-span-2">
+            <h3 className="text-lg py-3 md:py-0 md:pb-2">Collections</h3>
             <ul className="flex flex-initial flex-col md:flex-1">
               {/* <li className="py-3 md:py-0 md:pb-4">
               <Link href="/">
@@ -70,11 +69,9 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 </a>
               </Link>
             </li> */}
-              <li>
-                <h3 className="text-lg py-3 md:py-0 md:pb-2">Collections</h3>
-              </li>
+              <li></li>
               {navData &&
-                navData?.collections.map((page) => (
+                navData?.collections?.map((page) => (
                   <li
                     key={page.handle}
                     className="py-3 md:py-0 md:pb-2 text-sm"
@@ -88,13 +85,11 @@ const Footer: FC<Props> = ({ className, pages }) => {
                 ))}
             </ul>
           </div>
-          <div className="col-span-1 lg:col-span-2">
+          <div className="col-span-1 md:col-span-2">
+            <h3 className="text-lg py-3 md:py-0 md:pb-2">Types</h3>
             <ul className="flex flex-initial flex-col md:flex-1">
-              <li>
-                <h3 className="text-lg py-3 md:py-0 md:pb-2">Types</h3>
-              </li>
               {navData &&
-                navData?.types.map((type) => (
+                navData?.types?.map((type) => (
                   <li key={type} className="py-3 md:py-0 md:pb-2 text-sm">
                     <Link href={"/search/type/" + type}>
                       <a className="text-primary hover:underline transition ease-in-out duration-150 italic capitalize">
@@ -106,12 +101,11 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </ul>
           </div>
           <div className="col-span-1 lg:col-span-2">
+            <h3 className="text-lg py-3 md:py-0 md:pb-2">Brands</h3>
+
             <ul className="flex flex-initial flex-col md:flex-1">
-              <li>
-                <h3 className="text-lg py-3 md:py-0 md:pb-2">Brands</h3>
-              </li>
               {navData &&
-                navData?.brands.map((brand) => (
+                navData?.brands?.map((brand) => (
                   <li key={brand} className="py-3 md:py-0 md:pb-2 text-sm">
                     <Link href={"/search/designers/" + brand}>
                       <a className="text-primary hover:underline transition ease-in-out duration-150 italic capitalize">
@@ -148,7 +142,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
           </div>
         </div> */}
         </div>
-        <div className="pb-12 flex flex-col md:flex-row justify-between items-center space-y-4">
+        <div className="flex flex-col md:flex-row justify-between items-center py-2">
           <div>
             <span>&copy; 2021 Prima Vintage. All rights reserved.</span>
           </div>

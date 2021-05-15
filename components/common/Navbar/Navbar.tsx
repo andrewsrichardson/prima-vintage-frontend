@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import { Logo, Container } from "@components/ui";
 import { Searchbar, UserNav, Title } from "@components/common";
@@ -14,44 +14,32 @@ const Navbar: FC = () => {
       <Container>
         <div className="relative flex flex-row justify-between py-4 align-center md:py-6 ">
           <div className="flex items-center flex-1">
-            <div className="lg:hidden">
-              <Link href="/search">
-                <a className={s.link + " text-sm max-w-xs underline-dotted"}>
-                  PRODUCTS
-                </a>
-              </Link>
-            </div>
-            <nav className="hidden ml-6 space-x-8 lg:block">
-              <div className={s.linkWrapper}>
+            <nav className={s.linkWrapper + "mr-12 md:ml-6 md:mr-0"}>
+              <div className={"hover-link"}>
                 <Link href="/search">
-                  <a className={s.link}>ALL</a>
+                  <a className={s.borderleft + " " + s.link}>ALL</a>
                 </Link>
-                {/* <div className={s.dropdownWrapper + " textured"}>
-                  <h1>test</h1>
-                </div> */}
               </div>
-
-              <a className={"hover-link" + " " + s.linkAll}>
+              <div className={"hover-link hidden lg:inline-block"}>
                 <Link href="/search?sort=latest-desc">
-                  <a className="text-link">NEW IN</a>
+                  <a className={s.link}>NEW IN</a>
                 </Link>
-              </a>
-              <a className="hover-link">
+              </div>
+              <div className="hover-link hidden lg:inline-block">
                 <Link href="/search/sale">
-                  <a className="text-link">SALE</a>
+                  <a className={s.link}>SALE</a>
                 </Link>
-              </a>
-
-              <a className="hover-link">
+              </div>
+              <div className="hover-link hidden md:inline-block">
                 <Link href="/search/prima-collection">
-                  <a className="text-link">PRIMA COLLECTION</a>
+                  <a className={s.link}>PRIMA COLLECTION</a>
                 </Link>
-              </a>
+              </div>
             </nav>
           </div>
 
           <Title moving={moving} />
-          <div className="justify-center flex-1 lg:flex">
+          <div className="justify-center lg:flex">
             <Link href="/">
               <a className={s.logo} aria-label="Logo">
                 <Logo />

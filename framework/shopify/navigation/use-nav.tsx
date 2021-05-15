@@ -7,7 +7,7 @@ import getAllProductNav from "@framework/utils/queries/get-all-product-nav-query
 
 export default useCommerceCart as UseNav<typeof handler>;
 
-export const handler: SWRHook<null, {}, null, { isEmpty?: boolean }> = {
+export const handler = {
   fetchOptions: {
     query: getAllProductNav,
   },

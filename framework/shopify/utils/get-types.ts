@@ -12,10 +12,15 @@ export type TypeEdge = {
 
 export type Types = TypeEdge[];
 
+const fetchOptions = {};
 const getTypes = async (): Promise<TypeEdge[]> => {
-  const { data, res } = await fetchGraphqlApi(getAllProductTypes, {
-    variables: { first: 250 },
-  });
+  const { data, res } = await fetchGraphqlApi(
+    getAllProductTypes,
+    {
+      variables: { first: 250 },
+    },
+    fetchOptions
+  );
 
   let TypeStrings = data.productTypes.edges.map(({ node }) => node);
 
