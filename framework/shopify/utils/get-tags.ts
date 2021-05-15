@@ -11,12 +11,18 @@ export type TagEdge = {
 
 export type Tags = TagEdge[];
 
+const fetchOptions = {};
+
 const getTags = async (): Promise<TagEdge[]> => {
-  const { data } = await fetchGraphqlApi(getAllProductTags, {
-    variables: {
-      first: 250,
+  const { data } = await fetchGraphqlApi(
+    getAllProductTags,
+    {
+      variables: {
+        first: 250,
+      },
     },
-  });
+    fetchOptions
+  );
 
   let TagsStrings = data.productTags.edges.map(({ node }) => node);
 

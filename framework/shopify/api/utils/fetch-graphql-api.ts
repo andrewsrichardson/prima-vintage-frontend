@@ -4,9 +4,9 @@ import fetch from "./fetch";
 import { API_URL, API_TOKEN } from "../../const";
 import { getError } from "../../utils/handle-fetch-response";
 
-const fetchGraphqlApi: GraphQLFetcher = async (
+const fetchGraphqlApi = async (
   query: string,
-  { variables } = {},
+  { variables = {} } = {},
   fetchOptions
 ) => {
   const res = await fetch(API_URL, {

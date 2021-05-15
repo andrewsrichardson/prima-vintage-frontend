@@ -1,5 +1,5 @@
 import { Layout, CategoryWidget } from "@components/common";
-import { Grid, Marquee, Hero } from "@components/ui";
+import { Grid, Marquee, Hero, Logo } from "@components/ui";
 import { ProductCard } from "@components/product";
 // import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
@@ -42,7 +42,7 @@ export default function Home({
   brands,
   categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const rows = Array.from(Array(12).keys());
+  const rows = Array.from(Array(15).keys());
   return (
     <>
       <div
@@ -51,56 +51,90 @@ export default function Home({
           width: "100%",
           height: "90vh",
           maxHeight: "1080px",
-          display: "flex",
-          justifyContent: "space-between",
+          overflow: "hidden",
         }}
       >
+        <h2
+          className="uppercase absolute italic left-2/3"
+          style={{ left: "60%", top: "80%" }}
+        >
+          Fresh Vintage clothing. <br /> Hand-Picked.
+          <br /> Sustainably Sourced.
+        </h2>
         <div
-          className="hidden md:block z-10 bg-violet textured"
+          className="checked absolute"
           style={{
-            borderRight: "24px solid #38559c",
-            width: "15%",
+            width: "50%",
+            height: "20vh",
+            maxHeight: "1080px",
+            position: "absolute",
+            bottom: "5%",
+            left: "5%",
+          }}
+        ></div>
+        <div
+          className="flex w-1/4 justify-center absolute"
+          style={{ left: "5%", top: "5%" }}
+        >
+          <div className="w-full h-full absolute opacity-30 pointer-events-none z-10">
+            <Image
+              src="/dc-distressed-bg-1.jpg"
+              layout="fill"
+              className="rounded-full"
+            />
+          </div>
+          <Logo width="256px" height="256px" />
+        </div>
+        <div
+          className="checked-large absolute overlay"
+          style={{
+            width: "50%",
+            height: "60vh",
+            maxHeight: "1080px",
+            position: "absolute",
+            bottom: "30%",
+            left: "60%",
+          }}
+        ></div>
+        <div
+          className="bottom-1/3 md:bottom-5 md:w-1/2"
+          style={{
+            maxHeight: "1080px",
+            position: "absolute",
+            left: "5%",
+          }}
+        >
+          <div className="w-full h-full absolute opacity-30 pointer-events-none z-10">
+            <Image src="/dc-distressed-bg-1.jpg" layout="fill" />
+          </div>
+          <Image
+            src="/rooftop-andrew-brushed.jpg"
+            width="1920px"
+            height="1080px"
+            priority
+            objectFit="cover"
+            objectPosition="top"
+            layout="intrinsic"
+          />
+        </div>
+        <div
+          className="hidden md:block md:w-2/5 md:h-1/5 lg:h-full lg:w-1/5 z-10 bg-violet textured"
+          style={{
             overflow: "hidden",
+            position: "absolute",
+            right: "1%",
           }}
         >
           {rows.map((i) => (
             <h2
               key={"prima-" + i}
-              style={{ left: Math.random() * 30 }}
+              style={{ left: Math.random() * 30, lineHeight: "4.5rem" }}
               className="text-8xl italic relative"
             >
               PRIMA
             </h2>
           ))}
         </div>{" "}
-        <Image
-          src="/rooftop-andrew.jpg"
-          width="1920px"
-          height="1080px"
-          priority
-          objectFit="cover"
-          objectPosition="top"
-          className="z-0 overlay"
-          layout="intrinsic"
-        />
-        <div
-          className="hidden md:block bg-violet textured z-10"
-          style={{
-            borderLeft: "24px solid #38559c",
-            width: "15%",
-            overflow: "hidden",
-          }}
-        >
-          {rows.map((i) => (
-            <h2
-              key={"prima-" + i}
-              style={{ position: "relative", right: Math.random() * 30 }}
-              className="text-8xl italic"
-            >
-              VINTAGE
-            </h2>
-          ))}
-        </div>
       </div>
       <Marquee variant="secondary">
         {products.slice(0, 3).map((product, i) => (
@@ -119,14 +153,14 @@ export default function Home({
         style={{
           width: "100%",
           position: "relative",
-          height: "200vh",
+          height: "150vh",
           maxHeight: "1440px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-around",
           overflow: "hidden",
         }}
-        className={"textured bg-violet"}
+        className={"textured bg-violet h-screen"}
       >
         <div
           style={{
@@ -147,16 +181,16 @@ export default function Home({
             className="absolute"
           />
         </div>
-        <div className={"relative md:inset-x-1/4"}>
+        <div className={"relative md:inset-x-1/6 lg:inset-x-1/5"}>
           <CategoryWidget
-            image="/rooftop-george.jpg"
+            image="/rooftop-george-brushed.jpg"
             direction="left"
             path={"/search?sort=latest-desc"}
           />
         </div>
-        <div className={"relative md:inset-x-1/5"}>
+        <div className={"relative md:inset-x-0 lg:inset-x-1/5"}>
           <CategoryWidget
-            image="/front-jaina.jpg"
+            image="/front-jaina-brushed.jpg"
             direction="right"
             path={"/search/prima-collection"}
           />

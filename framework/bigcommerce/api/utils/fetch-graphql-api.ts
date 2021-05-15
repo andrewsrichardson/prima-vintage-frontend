@@ -3,9 +3,9 @@ import type { GraphQLFetcher } from "@commerce/api";
 import { getConfig } from "..";
 import fetch from "./fetch";
 
-const fetchGraphqlApi: GraphQLFetcher = async (
-  query: string,
-  { variables, preview } = {},
+const fetchGraphqlApi = async (
+  query,
+  { variables = {}, preview = {} } = {},
   fetchOptions
 ) => {
   // log.warn(query)

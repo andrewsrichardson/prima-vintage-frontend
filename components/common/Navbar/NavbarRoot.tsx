@@ -32,7 +32,7 @@ const NavbarRoot: FC = ({ children }) => {
       className={cn(s.root, colour, "textured", {
         "shadow-magical": hasScrolled,
       })}
-      style={{ borderBottom: moving ? "2px solid #38559c" : "0px" }}
+      // style={{ borderBottom: moving ? "2px solid #38559c" : "0px" }}
     >
       {children}
     </div>

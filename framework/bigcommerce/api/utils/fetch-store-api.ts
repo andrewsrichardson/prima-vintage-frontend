@@ -3,10 +3,7 @@ import { getConfig } from "..";
 import { BigcommerceApiError, BigcommerceNetworkError } from "./errors";
 import fetch from "./fetch";
 
-export default async function fetchStoreApi<T>(
-  endpoint: string,
-  options?: RequestInit
-): Promise<T> {
+export default async function (endpoint: string, options) {
   const config = getConfig();
   let res: Response;
 

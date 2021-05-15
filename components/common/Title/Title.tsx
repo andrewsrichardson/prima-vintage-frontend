@@ -11,28 +11,28 @@ const Title: FC<Props> = ({ moving }) => {
   const scrollY: number = useScrollPosition(60);
   const { width } = useWindowDimensions();
 
-  let ogFont = 5;
-  let topGoal = -280;
+  let ogFont = 4;
+  let topGoal = -400;
   let baseTop = 190;
 
   const scrollMax = 250;
   let scaleTo = 0.2;
-  if (width >= 900) {
-    ogFont = 10;
-    topGoal = -400;
-    scaleTo = 0.13;
+  if (width >= 768) {
+    ogFont = 9;
+    topGoal = -390;
+    scaleTo = 0.15;
   }
   if (width >= 1250) {
-    topGoal = -340;
-    ogFont = 15;
-    scaleTo = 0.1;
-    baseTop = 20;
+    topGoal = -250;
+    ogFont = 10;
+    scaleTo = 0.2;
+    baseTop = 50;
   }
   if (width >= 1920) {
-    ogFont = 20;
-    topGoal = -440;
-    scaleTo = 0.1;
-    baseTop = 0;
+    ogFont = 15;
+    topGoal = -300;
+    scaleTo = 0.15;
+    baseTop = 100;
   }
   const percent = scrollY / scrollMax;
   return (
@@ -63,6 +63,9 @@ const Title: FC<Props> = ({ moving }) => {
                 fontSize: `${ogFont}rem`,
                 transform: `scale(${scale})`,
                 fontFamily: "--var(font-heading)",
+                textShadow: "3px 2px 20px #D4D4D4",
+                lineHeight: "15rem",
+                overflow: "hidden",
               }}
             >
               <span
