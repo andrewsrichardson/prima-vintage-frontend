@@ -9,10 +9,13 @@ import { useUI } from "@components/ui/context";
 import { Bag, Cross, Check } from "@components/icons";
 import useCart from "@framework/cart/use-cart";
 import usePrice from "@framework/product/use-price";
+import { useGTMDispatch } from "@elgorditosalsero/react-gtm-hook";
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI();
   const { data, isLoading, isEmpty } = useCart();
+  const sendDataToGTM = useGTMDispatch();
+
   const { price: subTotal } = usePrice(
     data && {
       amount: Number(data.subtotalPrice),
@@ -29,6 +32,35 @@ const CartSidebarView: FC = () => {
 
   const error = null;
   const success = null;
+
+  const handleCheckout = () => {
+    // sendDataToGTM({
+    //   event: "checkout",
+    //   ecommerce: {
+    //     checkout: {
+    //       actionField: {
+    //         option: "",
+    //         step: "1",
+    //       },
+    //       products: data?.lineItems.map((product) => {
+    //         return {
+    //           brand: product.vendor,
+    //           category: product.productType,
+    //           currency: product.price?.currencyCode,
+    //           dimension6: product.tags[0],
+    //           dimension7: "",
+    //           dimension8: "",
+    //           dimension9: isPrima,
+    //           id: product.id,
+    //           name: product.name,
+    //           price: product.price,
+    //           quantity: "1",
+    //         };
+    //       }),
+    //     },
+    //   },
+    // });
+  };
 
   return (
     <div
@@ -124,7 +156,12 @@ const CartSidebarView: FC = () => {
                 <span>{total}</span>
               </div>
             </div>
-            <Button href="/checkout" Component="a" width="100%">
+            <Button
+              href="/checkout"
+              Component="a"
+              width="100%"
+              onClick={() => handleCheckout()}
+            >
               Proceed to Checkout
             </Button>
           </div>

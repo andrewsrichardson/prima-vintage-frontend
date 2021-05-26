@@ -11,6 +11,7 @@ edges {
     handle
     description
     productType
+    tags
     priceRange {
       minVariantPrice {
         amount

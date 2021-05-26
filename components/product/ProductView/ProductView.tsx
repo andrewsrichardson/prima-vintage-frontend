@@ -1,7 +1,7 @@
 import cn from "classnames";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import s from "./ProductView.module.css";
 
 import { Swatch, ProductSlider } from "@components/product";
@@ -16,6 +16,8 @@ import WishlistButton from "@components/wishlist/WishlistButton";
 import Link from "next/link";
 import Accordion from "@components/common/Accordion";
 import { useGTMDispatch } from "@elgorditosalsero/react-gtm-hook";
+import useCart from "@framework/cart/use-cart";
+import { useCustomer } from "@framework/customer";
 
 interface Props {
   className?: string;
@@ -25,19 +27,70 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const addItem = useAddItem();
+  const { data } = useCart();
   const { price } = usePrice({
     amount: product.price.value,
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   });
   const sendDataToGTM = useGTMDispatch();
-  console.log(sendDataToGTM);
   const { openSidebar } = useUI();
   const [loading, setLoading] = useState(false);
   const [choices, setChoices] = useState<SelectedOptions>({
     size: null,
     color: null,
   });
+
+  const { data: customer } = useCustomer();
+
+  useEffect(() => {
+    sendDataToGTM({
+      event: "pageMetaData",
+      page: {
+        category1: null,
+        category2: null,
+        category3: null,
+        type: "product",
+      },
+      user: {
+        email: customer?.email,
+        hasTransacted: "unknown",
+        // @ts-ignore
+        id: customer?.id,
+        loggedIn: customer ? true : false,
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    const isPrima = collections.some(
+      (c) => c.node.handle === "prima-collection"
+    );
+    // 7 = colour
+    // 8 = quality
+    sendDataToGTM({
+      event: "addToCart",
+      ecommerce: {
+        add: {
+          products: [
+            {
+              brand: product.vendor,
+              category: product.productType,
+              currency: product.price?.currencyCode,
+              dimension6: product.tags[0],
+              dimension7: "",
+              dimension8: "",
+              dimension9: isPrima,
+              id: product.id,
+              name: product.name,
+              price: product.price.value,
+              quantity: "1",
+            },
+          ],
+        },
+      },
+    });
+  }, []);
 
   const panels = [
     {
@@ -61,6 +114,8 @@ const ProductView: FC<Props> = ({ product }) => {
     },
   ];
 
+  console.log(data);
+
   // Select the correct variant based on choices
   const variant = getVariant(product, choices);
 
@@ -69,16 +124,17 @@ const ProductView: FC<Props> = ({ product }) => {
   const addToCart = async () => {
     setLoading(true);
     try {
-      await addItem({
-        productId: String(product.id),
-        variantId: String(variant ? variant.id : product.variants[0].id),
-      });
+      if (!data.lineItems.some((i) => i.name === product.name)) {
+        await addItem({
+          productId: String(product.id),
+          variantId: String(variant ? variant.id : product.variants[0].id),
+        });
+      }
       const isPrima = collections.some(
         (c) => c.node.handle === "prima-collection"
       );
       // 7 = colour
       // 8 = quality
-      console.log("test");
       sendDataToGTM({
         event: "addToCart",
         ecommerce: {
@@ -94,7 +150,7 @@ const ProductView: FC<Props> = ({ product }) => {
                 dimension9: isPrima,
                 id: product.id,
                 name: product.name,
-                price: product.price,
+                price: product.price.value,
                 quantity: "1",
               },
             ],

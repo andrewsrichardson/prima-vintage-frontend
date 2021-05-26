@@ -1,7 +1,7 @@
 import cn from "classnames";
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { Layout } from "@components/common";
@@ -31,6 +31,8 @@ import {
   useSearchMeta,
 } from "@lib/search";
 import { Product } from "@commerce/types";
+import { useGTMDispatch } from "@elgorditosalsero/react-gtm-hook";
+import { useCustomer } from "@framework/customer";
 
 export async function getStaticProps({
   preview,
@@ -62,6 +64,7 @@ export default function Search({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [activeFilter, setActiveFilter] = useState("");
   const [toggleFilter, setToggleFilter] = useState(false);
+  const sendDataToGTM = useGTMDispatch();
 
   const router = useRouter();
   const { asPath } = router;
@@ -92,6 +95,52 @@ export default function Search({
     sort: typeof sort === "string" ? sort : "",
   });
 
+  const { data: customer } = useCustomer();
+
+  useEffect(() => {
+    sendDataToGTM({
+      event: "pageMetaData",
+      page: {
+        category1: type,
+        category2: brand,
+        category3: category,
+        type: "search",
+      },
+      user: {
+        email: customer?.email,
+        hasTransacted: "unknown",
+        // @ts-ignore
+        id: customer?.id,
+        loggedIn: customer ? true : false,
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    sendDataToGTM({
+      event: "productImpression",
+      ecommerce: {
+        impressions: data.products.map((product, index) => {
+          return {
+            brand: product.vendor,
+            category: product.productType,
+            currency: product.price?.currencyCode,
+            dimension6: product.tags[0] || null,
+            dimension7: "",
+            dimension8: "",
+            dimension9: category === "prima-collection",
+            id: product.id,
+            name: product.name,
+            price: product.price.value,
+            quantity: "1",
+            position: index,
+            url: "https://www.primavintage.co.uk/search",
+          };
+        }),
+      },
+    });
+  }, [category, brand, type, sort]);
+
   const handleClick = (event: any, filter: string) => {
     if (filter !== activeFilter) {
       setToggleFilter(true);
@@ -99,6 +148,36 @@ export default function Search({
       setToggleFilter(!toggleFilter);
     }
     setActiveFilter(filter);
+  };
+
+  const handleProductClick = (product) => {
+    sendDataToGTM({
+      event: "productClick",
+      ecommerce: {
+        currencyCode: "GBP",
+        click: {
+          actionField: {
+            list: "search",
+          },
+          products: [
+            {
+              brand: product.vendor,
+              category: product.productType,
+              currency: product.price?.currencyCode,
+              dimension6: product.tags[0] || null,
+              dimension7: "",
+              dimension8: "",
+              dimension9: category === "prima-collection",
+              id: product.id,
+              name: product.name,
+              price: product.price.value,
+              quantity: "1",
+              url: "https://www.primavintage.co.uk/product" + product.path,
+            },
+          ],
+        },
+      },
+    });
   };
   return (
     <Container>
@@ -472,16 +551,18 @@ export default function Search({
           {data ? (
             <Grid layout="normal">
               {data.products.map((product: Product) => (
-                <ProductCard
-                  variant="simple"
-                  key={product.path}
-                  className="animated fadeIn"
-                  product={product}
-                  imgProps={{
-                    width: 480,
-                    height: 480,
-                  }}
-                />
+                <div onClick={() => handleProductClick(product)}>
+                  <ProductCard
+                    variant="simple"
+                    key={product.path}
+                    className="animated fadeIn"
+                    product={product}
+                    imgProps={{
+                      width: 480,
+                      height: 480,
+                    }}
+                  />
+                </div>
               ))}
             </Grid>
           ) : (

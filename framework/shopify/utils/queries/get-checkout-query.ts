@@ -48,7 +48,7 @@ export const checkoutDetailsFragment = `
       }
     }
   }
-`
+`;
 
 const getCheckoutQuery = /* GraphQL */ `
   query($checkoutId: ID!) {
@@ -58,5 +58,5 @@ const getCheckoutQuery = /* GraphQL */ `
       }
     }
   }
-`
-export default getCheckoutQuery
+`;
+export default getCheckoutQuery;

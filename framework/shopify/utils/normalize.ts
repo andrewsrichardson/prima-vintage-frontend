@@ -83,6 +83,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     handle,
     priceRange,
     options,
+    tags,
     ...rest
   } = productNode;
 
@@ -91,6 +92,7 @@ export function normalizeProduct(productNode: ShopifyProduct): Product {
     name,
     vendor,
     description,
+    tags: tags,
     path: `/${handle}`,
     slug: handle?.replace(/^\/+|\/+$/g, ""),
     price: money(priceRange?.minVariantPrice),

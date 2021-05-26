@@ -72,7 +72,9 @@ export const handler: SWRHook<
     }
 
     return {
-      products: edges.map(({ node }: ProductEdge) => normalizeProduct(node)),
+      products: edges.map(({ node }: ProductEdge) => {
+        return normalizeProduct(node);
+      }),
       found: !!edges.length,
     };
   },

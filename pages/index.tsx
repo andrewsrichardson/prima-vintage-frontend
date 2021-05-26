@@ -10,6 +10,9 @@ import getSiteInfo from "@framework/common/get-site-info";
 import getAllPages from "@framework/common/get-all-pages";
 import Image from "next/image";
 import { relative } from "node:path";
+import { useGTMDispatch } from "@elgorditosalsero/react-gtm-hook";
+import { useEffect } from "react";
+import { useCustomer } from "@framework/customer";
 
 export async function getStaticProps({
   preview,
@@ -43,6 +46,83 @@ export default function Home({
   categories,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const rows = Array.from(Array(15).keys());
+  const sendDataToGTM = useGTMDispatch();
+  const { data: customer } = useCustomer();
+
+  useEffect(() => {
+    sendDataToGTM({
+      event: "productImpression",
+      ecommerce: {
+        impressions: products.slice(0, 3).map((product, index) => {
+          return {
+            brand: product.vendor,
+            category: product.productType,
+            currency: product.price?.currencyCode,
+            dimension6: product.tags[0] || null,
+            dimension7: "",
+            dimension8: "",
+            dimension9: true,
+            id: product.id,
+            name: product.name,
+            price: product.price.value,
+            quantity: "1",
+            position: index,
+            url: "https://www.primavintage.co.uk/",
+          };
+        }),
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    sendDataToGTM({
+      event: "pageMetaData",
+      page: {
+        category1: null,
+        category2: null,
+        category3: null,
+        type: "home",
+      },
+      user: {
+        email: customer?.email,
+        hasTransacted: "unknown",
+        // @ts-ignore
+        id: customer?.id,
+        loggedIn: customer ? true : false,
+      },
+    });
+  }, []);
+
+  const handleProductClick = (product) => {
+    sendDataToGTM({
+      event: "productClick",
+      ecommerce: {
+        currencyCode: "GBP",
+        click: {
+          actionField: {
+            list: "home-marquee",
+          },
+          products: [
+            {
+              brand: product.vendor,
+              category: product.productType,
+              currency: product.price?.currencyCode,
+              dimension6: "",
+              dimension7: "",
+              dimension8: "",
+              dimension9: true,
+              id: product.id,
+              name: product.name,
+              price: product.price.value,
+              quantity: "1",
+              url: "https://www.primavintage.co.uk/product" + product.path,
+            },
+          ],
+        },
+      },
+    });
+  };
+
   return (
     <>
       <div
@@ -138,15 +218,17 @@ export default function Home({
       </div>
       <Marquee variant="secondary">
         {products.slice(0, 3).map((product, i) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
-          />
+          <div onClick={() => handleProductClick(product)}>
+            <ProductCard
+              key={product.id}
+              product={product}
+              variant="slim"
+              imgProps={{
+                width: 320,
+                height: 320,
+              }}
+            />
+          </div>
         ))}
       </Marquee>
       <div
