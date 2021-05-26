@@ -50,25 +50,7 @@ const ProductCard: FC<Props> = ({
         ) : (
           <>
             <div className={s.squareBg} />
-            <div className="flex flex-row justify-between box-border w-full z-20 absolute">
-              <div className="absolute top-0 left-0 pr-16 max-w-full">
-                <h3 className={s.productTitle}>
-                  <span>{product.name}</span>
-                </h3>
-                <span className={s.productPrice}>
-                  {product.price.value}
-                  &nbsp;
-                  {product.price.currencyCode}
-                </span>
-              </div>
-              {process.env.COMMERCE_WISHLIST_ENABLED && (
-                <WishlistButton
-                  className={s.wishlistButton}
-                  productId={product.id}
-                  variant={product.variants[0] as any}
-                />
-              )}
-            </div>
+
             <div className={s.imageContainer}>
               {product?.images && (
                 <Image
@@ -79,18 +61,36 @@ const ProductCard: FC<Props> = ({
                       ? product.images[1]?.url || placeholderImg
                       : product.images[0].url || placeholderImg
                   }
-                  onMouseOver={
-                    (e) => setHover(true)
-                    // (e.target.src =
-                    //   product.images[0].url || product.images[0].url)
-                  }
+                  onMouseOver={() => setHover(true)}
                   onMouseLeave={() => setHover(false)}
-                  height={540}
+                  height={816}
                   width={540}
-                  quality="85"
+                  quality="60"
                   layout="responsive"
+                  objectFit="contain"
                   {...imgProps}
                 />
+              )}
+            </div>
+            <div className="flex flex-row justify-between box-border w-full z-20 relative">
+              <div className="relative max-w-full">
+                <h3 className={s.productTitle}>
+                  <span>{product.name}</span>
+                </h3>
+              </div>
+              {process.env.COMMERCE_WISHLIST_ENABLED && (
+                <div>
+                  <WishlistButton
+                    className={s.wishlistButton}
+                    productId={product.id}
+                    variant={product.variants[0] as any}
+                  />
+                  <span className={s.productPrice}>
+                    {product.price.value}
+                    &nbsp;
+                    {product.price.currencyCode}
+                  </span>
+                </div>
               )}
             </div>
           </>

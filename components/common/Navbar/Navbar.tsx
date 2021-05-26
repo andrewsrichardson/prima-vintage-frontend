@@ -14,7 +14,7 @@ const Navbar: FC = () => {
       <Container>
         <div className="relative flex flex-row justify-between py-4 align-center md:py-6 ">
           <div className="flex items-center flex-1">
-            <nav className={s.linkWrapper + "mr-12 md:ml-6 md:mr-0"}>
+            <nav className={s.linkWrapper + "mr-12 md:ml-0 md:mr-0"}>
               <div className={"hover-link md:inline-block"}>
                 <Link href="/search">
                   <a className={s.borderleft + " " + s.link}>ALL</a>

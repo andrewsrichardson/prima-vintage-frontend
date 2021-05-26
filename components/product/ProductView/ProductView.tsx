@@ -15,6 +15,7 @@ import { getVariant, SelectedOptions } from "../helpers";
 import WishlistButton from "@components/wishlist/WishlistButton";
 import Link from "next/link";
 import Accordion from "@components/common/Accordion";
+import { useGTMDispatch } from "@elgorditosalsero/react-gtm-hook";
 
 interface Props {
   className?: string;
@@ -29,6 +30,8 @@ const ProductView: FC<Props> = ({ product }) => {
     baseAmount: product.price.retailPrice,
     currencyCode: product.price.currencyCode!,
   });
+  const sendDataToGTM = useGTMDispatch();
+  console.log(sendDataToGTM);
   const { openSidebar } = useUI();
   const [loading, setLoading] = useState(false);
   const [choices, setChoices] = useState<SelectedOptions>({
@@ -61,6 +64,8 @@ const ProductView: FC<Props> = ({ product }) => {
   // Select the correct variant based on choices
   const variant = getVariant(product, choices);
 
+  const collections = product.collections.edges;
+
   const addToCart = async () => {
     setLoading(true);
     try {
@@ -68,13 +73,41 @@ const ProductView: FC<Props> = ({ product }) => {
         productId: String(product.id),
         variantId: String(variant ? variant.id : product.variants[0].id),
       });
+      const isPrima = collections.some(
+        (c) => c.node.handle === "prima-collection"
+      );
+      // 7 = colour
+      // 8 = quality
+      console.log("test");
+      sendDataToGTM({
+        event: "addToCart",
+        ecommerce: {
+          add: {
+            products: [
+              {
+                brand: product.vendor,
+                category: product.productType,
+                currency: product.price?.currencyCode,
+                dimension6: product.tags[0],
+                dimension7: "",
+                dimension8: "",
+                dimension9: isPrima,
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                quantity: "1",
+              },
+            ],
+          },
+        },
+      });
+
       openSidebar();
       setLoading(false);
     } catch (err) {
       setLoading(false);
     }
   };
-  const collections = product.collections.edges;
 
   return (
     <Container

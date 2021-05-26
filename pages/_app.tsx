@@ -7,6 +7,7 @@ import { Head } from "@components/common";
 import { ManagedUIContext } from "@components/ui/context";
 import Transition from "@components/ui/Transition";
 import { useRouter } from "next/router";
+import { GTMProvider } from "@elgorditosalsero/react-gtm-hook";
 
 const Noop: FC = ({ children }) => <>{children}</>;
 
@@ -18,8 +19,10 @@ export default function MyApp({ Component, pageProps }) {
     document.body.classList?.remove("loading");
   }, []);
 
+  const gtmParams = { id: "GTM-PQNQ3VW" };
+
   return (
-    <>
+    <GTMProvider state={gtmParams}>
       <Head />
       <ManagedUIContext>
         <Transition location={router.pathname}>
@@ -28,6 +31,6 @@ export default function MyApp({ Component, pageProps }) {
           </Layout>
         </Transition>
       </ManagedUIContext>
-    </>
+    </GTMProvider>
   );
 }

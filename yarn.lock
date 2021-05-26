@@ -448,6 +448,11 @@
   "resolved" "https://registry.npmjs.org/@csstools/convert-colors/-/convert-colors-1.4.0.tgz"
   "version" "1.4.0"
 
+"@elgorditosalsero/react-gtm-hook@^2.0.7":
+  "integrity" "sha512-xwv9UsD2rvtsrXs26HlRDjafQUXEJdUIrqfelxkYItwyNlBlMKL1goiXCodOHEMt+IY6oQf8ZaFk4JGDf3rUAQ=="
+  "resolved" "https://registry.npmjs.org/@elgorditosalsero/react-gtm-hook/-/react-gtm-hook-2.0.7.tgz"
+  "version" "2.0.7"
+
 "@endemolshinegroup/cosmiconfig-typescript-loader@3.0.2":
   "integrity" "sha512-QRVtqJuS1mcT56oHpVegkKBlgtWjXw/gHNWO3eL9oyB5Sc7HBoc2OLG/nYpVfT/Jejvo3NUrD0Udk7XgoyDKkA=="
   "resolved" "https://registry.npmjs.org/@endemolshinegroup/cosmiconfig-typescript-loader/-/cosmiconfig-typescript-loader-3.0.2.tgz"
@@ -5682,7 +5687,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^0.14.9 || ^15.3.0 || ^16.0.0", "react@^15.3.0 || ^16.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.11.0 || ^17.0.0", "react@^16.13.1", "react@^16.6.0 || ^17", "react@^16.7.0", "react@^16.8.0", "react@^16.8.0 || ^17.0.0", "react@^16.9.0 || ^17", "react@^17.0.1", "react@>=16.6.0", "react@>=16.8", "react@15.x.x || 16.x.x || 17.x.x", "react@17.0.1":
+"react@^0.14.9 || ^15.3.0 || ^16.0.0", "react@^15.3.0 || ^16.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.11.0 || ^17.0.0", "react@^16.13.1", "react@^16.6.0 || ^17", "react@^16.7.0", "react@^16.8.0", "react@^16.8.0 || ^17.0.0", "react@^16.9.0 || ^17", "react@^17.0.1", "react@>=16.6.0", "react@>=16.8", "react@>=17", "react@15.x.x || 16.x.x || 17.x.x", "react@17.0.1":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.1.tgz"
   "version" "17.0.1"
