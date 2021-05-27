@@ -125,6 +125,27 @@ export default function Home({
 
   return (
     <>
+      {" "}
+      <Marquee variant="primary">
+        <h2 className="uppercase whitespace-nowrap text-black">
+          Quality Clothes
+        </h2>
+        <div className="max-w-xs max-h-xs capitalize">
+          <Logo height="36px" width="36px" />
+        </div>
+        <h2 className="uppercase whitespace-nowrap text-black">
+          Free Delivery over £50
+        </h2>
+        <div className="max-w-xs max-h-xs capitalize">
+          <Logo height="36px" width="36px" />
+        </div>
+        <h2 className="uppercase whitespace-nowrap text-black">
+          Sustainably Sourced
+        </h2>
+        <div className="max-w-xs max-h-xs capitalize">
+          <Logo height="36px" width="36px" />
+        </div>
+      </Marquee>
       <div
         className="bg-violet textured relative"
         style={{
@@ -168,7 +189,7 @@ export default function Home({
         <div
           className="checked-large absolute overlay"
           style={{
-            width: "50%",
+            width: "40%",
             height: "60vh",
             maxHeight: "1080px",
             position: "absolute",
@@ -278,7 +299,6 @@ export default function Home({
           />
         </div>
       </div>
-
       <Hero
         headline="Sustainable garms. Affordable Prices."
         description="Prima Vintage is committed to bringing the retro clothing community the freshest ethically-sourced garms. "
@@ -295,19 +315,7 @@ export default function Home({
           />
         ))}
       </Grid>
-      <Marquee>
-        {products.slice(0, 3).map((product, i) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            variant="slim"
-            imgProps={{
-              width: 320,
-              height: 320,
-            }}
-          />
-        ))}
-      </Marquee>
+      q
       {/* <HomeAllProductsGrid
         newestProducts={products}
         categories={categories}

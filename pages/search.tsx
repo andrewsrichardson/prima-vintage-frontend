@@ -117,29 +117,31 @@ export default function Search({
   }, []);
 
   useEffect(() => {
-    sendDataToGTM({
-      event: "productImpression",
-      ecommerce: {
-        impressions: data.products.map((product, index) => {
-          return {
-            brand: product.vendor,
-            category: product.productType,
-            currency: product.price?.currencyCode,
-            dimension6: product.tags[0] || null,
-            dimension7: "",
-            dimension8: "",
-            dimension9: category === "prima-collection",
-            id: product.id,
-            name: product.name,
-            price: product.price.value,
-            quantity: "1",
-            position: index,
-            url: "https://www.primavintage.co.uk/search",
-          };
-        }),
-      },
-    });
-  }, [category, brand, type, sort]);
+    if (data) {
+      sendDataToGTM({
+        event: "productImpression",
+        ecommerce: {
+          impressions: data.products.map((product, index) => {
+            return {
+              brand: product.vendor,
+              category: product.productType,
+              currency: product.price?.currencyCode,
+              dimension6: product.tags[0] || null,
+              dimension7: "",
+              dimension8: "",
+              dimension9: category === "prima-collection",
+              id: product.id,
+              name: product.name,
+              price: product.price.value,
+              quantity: "1",
+              position: index,
+              url: "https://www.primavintage.co.uk/search",
+            };
+          }),
+        },
+      });
+    }
+  }, [category, brand, type, sort, data]);
 
   const handleClick = (event: any, filter: string) => {
     if (filter !== activeFilter) {

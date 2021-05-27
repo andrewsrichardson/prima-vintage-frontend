@@ -23,10 +23,20 @@ const Marquee: FC<Props> = ({
     className
   );
 
+  const style = variant === "primary" ? "textured" : "checked bg-violet";
+  const height = variant === "primary" ? 70 : null;
+
   return (
-    <div className="bg-violet checked">
-      <Ticker offset={80}>
-        {() => <div className={s.container}>{children}</div>}
+    <div className={style}>
+      <Ticker height={height} offset={80}>
+        {() => (
+          <div
+            className={s.container}
+            style={{ minHeight: variant === "secondary" ? "320px" : null }}
+          >
+            {children}
+          </div>
+        )}
       </Ticker>
     </div>
   );

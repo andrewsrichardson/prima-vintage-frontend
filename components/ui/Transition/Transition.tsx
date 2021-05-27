@@ -118,7 +118,10 @@ const Transition: React.FC<TransitionKind<ReactChild>> = ({
                   </div>
                 </div>
               ) : (
-                <div style={{ ...overlayStyle[status] }} className="textured">
+                <div
+                  style={{ ...overlayStyle[status] }}
+                  className="textured bg-violet"
+                >
                   {children}
                 </div>
               )}
