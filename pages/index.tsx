@@ -157,7 +157,7 @@ export default function Home({
       >
         <h2
           className="uppercase absolute italic left-2/3"
-          style={{ left: "60%", top: "80%" }}
+          style={{ left: "60%", top: "75%" }}
         >
           Fresh Vintage clothing. <br /> Hand-Picked.
           <br /> Sustainably Sourced.
@@ -198,7 +198,7 @@ export default function Home({
           }}
         ></div>
         <div
-          className="bottom-1/3 md:bottom-5 md:w-1/2"
+          className="bottom-1/2 md:bottom-5 md:w-1/2"
           style={{
             maxHeight: "1080px",
             position: "absolute",
@@ -219,7 +219,7 @@ export default function Home({
           />
         </div>
         <div
-          className="hidden md:block md:w-2/5 md:h-1/5 lg:h-full lg:w-1/5 z-10 bg-violet textured"
+          className="hidden md:block md:w-content md:h-1/5 lg:h-full lg:w-1/5 xl:w-1/6 z-10 bg-violet textured"
           style={{
             overflow: "hidden",
             position: "absolute",

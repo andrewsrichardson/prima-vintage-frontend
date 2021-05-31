@@ -8,7 +8,7 @@
 }
 
 .container > * {
-  @apply relative flex-1 px-16 py-4;
+  @apply relative flex-1 px-16 py-1;
 }
 
 .primary {

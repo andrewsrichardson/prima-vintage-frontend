@@ -23,11 +23,18 @@ const Marquee: FC<Props> = ({
     className
   );
 
-  const style = variant === "primary" ? "textured" : "checked bg-violet";
-  const height = variant === "primary" ? 70 : null;
+  const style = variant === "primary" ? "" : "checked bg-violet";
+  const height = variant === "primary" ? 44 : null;
 
   return (
-    <div className={style}>
+    <div
+      className={style}
+      style={{
+        borderTop: variant === "primary" ? "4px solid var(--accents-7)" : "0px",
+        borderBottom:
+          variant === "primary" ? "4px solid var(--accents-7)" : "0px",
+      }}
+    >
       <Ticker height={height} offset={80}>
         {() => (
           <div
