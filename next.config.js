@@ -6,7 +6,7 @@ const isShopify = commerce.provider === 'shopify';
 
 module.exports = withCommerceConfig({
   images: {
-    domains: ['cdn.shopify.com'],
+    domains: ['cdn.shopify.com, primavintage.co.uk'],
   },
   commerce,
   target: 'serverless',
