@@ -284,14 +284,14 @@ export default function Home({
             className="absolute"
           />
         </div>
-        <div className={"relative md:inset-x-1/6 lg:inset-x-1/5"}>
+        <div className={"relative m-auto"}>
           <CategoryWidget
             image="/rooftop-george-brushed.jpg"
             direction="left"
             path={"/search?sort=latest-desc"}
           />
         </div>
-        <div className={"relative md:inset-x-0 lg:inset-x-1/5"}>
+        <div className={"relative m-auto"}>
           <CategoryWidget
             image="/front-jaina-brushed.jpg"
             direction="right"
@@ -315,7 +315,6 @@ export default function Home({
           />
         ))}
       </Grid>
-      q
       {/* <HomeAllProductsGrid
         newestProducts={products}
         categories={categories}

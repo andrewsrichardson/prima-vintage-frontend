@@ -14,10 +14,16 @@ const Avatar: FC<Props> = ({}) => {
   return (
     <div
       ref={ref}
-      style={{ backgroundImage: "/male.svg" }}
+      style={{
+        backgroundImage: "/nextimg/male.svg/48/75?url=male.svg&w=48&q=75",
+      }}
       className="inline-block h-8 w-8 rounded-full border-2 border-accents-7 hover:border-accents-2 focus:border-secondary transition linear-out duration-150 flex justify-center items-center"
     >
-      <Image src="/male.svg" width="20px" height="20px" />
+      <Image
+        src="/nextimg/male.svg/48/75?url=male.svg&w=48&q=75"
+        width="20px"
+        height="20px"
+      />
     </div>
   );
 };

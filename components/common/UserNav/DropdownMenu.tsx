@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import s from "./DropdownMenu.module.css";
 import { Avatar } from "@components/common";
-import { Moon, Sun } from "@components/icons";
+import { Moon, Sun, User } from "@components/icons";
 import { useUI } from "@components/ui/context";
 import ClickOutside from "@lib/click-outside";
 import useLogout from "@framework/auth/use-logout";
@@ -64,7 +64,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ open = false }) => {
           onClick={() => setDisplay(!display)}
           aria-label="Menu"
         >
-          <Avatar />
+          <User />
         </button>
         {display && (
           <ul className={s.dropdownMenu} ref={ref}>

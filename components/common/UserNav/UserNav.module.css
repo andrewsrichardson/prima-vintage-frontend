@@ -38,3 +38,6 @@
 .avatarButton:focus {
   @apply outline-none;
 }
+.mainContainer {
+  padding-top: 8px;
+}

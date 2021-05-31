@@ -35,7 +35,7 @@ const Marquee: FC<Props> = ({
           variant === "primary" ? "4px solid var(--accents-7)" : "0px",
       }}
     >
-      <Ticker height={height} offset={80}>
+      <Ticker height={height} offset={0}>
         {() => (
           <div
             className={s.container}

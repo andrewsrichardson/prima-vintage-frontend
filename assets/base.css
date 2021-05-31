@@ -90,11 +90,9 @@ body {
 }
 h1 {
   font-family: var(--font-heading) !important;
-  letter-spacing: -8px;
 }
 h2 {
   font-family: var(--font-heading) !important;
-
   color: var(--darkviolet);
 }
 body {

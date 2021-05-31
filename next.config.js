@@ -5,6 +5,9 @@ const isBC = commerce.provider === 'bigcommerce';
 const isShopify = commerce.provider === 'shopify';
 
 module.exports = withCommerceConfig({
+  images: {
+    domains: 'https://cdn.shopify.com',
+  },
   commerce,
   target: 'serverless',
   i18n: {
