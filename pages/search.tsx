@@ -123,6 +123,7 @@ export default function Search({
         ecommerce: {
           impressions: data.products.map((product, index) => {
             return {
+              list: "product-listing-page",
               brand: product.vendor,
               category: product.productType,
               currency: product.price?.currencyCode,
