@@ -55,7 +55,7 @@ export default function Home({
       ecommerce: {
         impressions: products.slice(0, 3).map((product, index) => {
           return {
-            list: "home-marquee",
+            list: "Home Marquee",
             brand: product.vendor,
             category: product.productType,
             currency: product.price?.currencyCode,
