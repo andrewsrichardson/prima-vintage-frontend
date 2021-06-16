@@ -69,9 +69,9 @@ const ProductView: FC<Props> = ({ product }) => {
     // 7 = colour
     // 8 = quality
     sendDataToGTM({
-      event: "addToCart",
+      event: "productView",
       ecommerce: {
-        add: {
+        detail: {
           products: [
             {
               brand: product.vendor,
@@ -84,7 +84,7 @@ const ProductView: FC<Props> = ({ product }) => {
               id: product.id,
               name: product.name,
               price: product.price.value,
-              quantity: "1",
+              url: "https://www.primavintage.co.uk/product/" + product.slug,
             },
           ],
         },
@@ -113,8 +113,6 @@ const ProductView: FC<Props> = ({ product }) => {
         "We are committed to helping the planet in every way we can - from selling vintage clothing to cut down on fast fashion, to using recycled packaging and offsetting our carbon footprint",
     },
   ];
-
-  console.log(data);
 
   // Select the correct variant based on choices
   const variant = getVariant(product, choices);
