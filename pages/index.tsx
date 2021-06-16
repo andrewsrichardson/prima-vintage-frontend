@@ -101,7 +101,7 @@ export default function Home({
         currencyCode: "GBP",
         click: {
           actionField: {
-            list: "home-marquee",
+            list: "Home Marquee",
           },
           products: [
             {

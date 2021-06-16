@@ -1,17 +1,17 @@
 {
   "title": "Prima Vintage",
   "titleTemplate": "%s | Prima Vintage",
-  "description": "Shop high quality, ethically-sourced and hand-picked vintage garms for Men and Women. Discover vintage essenatials as well as premium pieces, with free UK delivery over £50.",
+  "description": "Shop high quality, ethically-sourced and hand-picked vintage garms for Men and Women. Discover vintage essentials as well as premium pieces, with free UK delivery over £50.",
   "openGraph": {
     "title": "Prima Vintage | Retro Clothing",
-    "description": "Shop high quality, ethically-sourced and hand-picked vintage garms for Men and Women. Discover vintage essenatials as well as premium pieces, with free UK delivery over £50.",
+    "description": "Shop high quality, ethically-sourced and hand-picked vintage garms for Men and Women. Discover vintage essentials as well as premium pieces, with free UK delivery over £50.",
     "type": "website",
     "locale": "en_IE",
     "url": "https://primavintage.co.uk",
     "site_name": "Prima Vintage",
     "images": [
       {
-        "url": "/card.png",
+        "url": "/logo-white-title.png",
         "width": 800,
         "height": 600,
         "alt": "Prima Vintage"

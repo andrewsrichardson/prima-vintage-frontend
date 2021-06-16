@@ -160,7 +160,7 @@ export default function Search({
         currencyCode: "GBP",
         click: {
           actionField: {
-            list: "search",
+            list: "Product Listing Page",
           },
           products: [
             {
