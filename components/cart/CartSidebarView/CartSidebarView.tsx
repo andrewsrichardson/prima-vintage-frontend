@@ -160,7 +160,7 @@ const CartSidebarView: FC = () => {
               href="/checkout"
               Component="a"
               width="100%"
-              onClick={() => handleCheckout()}
+              // onClick={() => handleCheckout()}
             >
               Proceed to Checkout
             </Button>
