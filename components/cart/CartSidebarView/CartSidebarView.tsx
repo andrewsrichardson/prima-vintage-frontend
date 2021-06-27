@@ -10,6 +10,7 @@ import { Bag, Cross, Check } from "@components/icons";
 import useCart from "@framework/cart/use-cart";
 import usePrice from "@framework/product/use-price";
 import { useGTMDispatch } from "@elgorditosalsero/react-gtm-hook";
+import Cookies from "js-cookie";
 
 const CartSidebarView: FC = () => {
   const { closeSidebar } = useUI();
@@ -157,7 +158,7 @@ const CartSidebarView: FC = () => {
               </div>
             </div>
             <Button
-              href="/checkout"
+              href={Cookies.get("shopify_checkoutUrl")}
               Component="a"
               width="100%"
               // onClick={() => handleCheckout()}

@@ -11,7 +11,7 @@ import getAllPages from "@framework/common/get-all-pages";
 import Image from "next/image";
 import { relative } from "node:path";
 import { useGTMDispatch } from "@elgorditosalsero/react-gtm-hook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCustomer } from "@framework/customer";
 
 export async function getStaticProps({
@@ -44,7 +44,8 @@ export default function Home({
   products,
   brands,
   categories,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+  incrementLoadedImages,
+}) {
   const rows = Array.from(Array(15).keys());
   const sendDataToGTM = useGTMDispatch();
   const { data: customer } = useCustomer();
@@ -126,7 +127,6 @@ export default function Home({
 
   return (
     <>
-      {" "}
       <Marquee variant="primary">
         <h2 className="uppercase whitespace-nowrap text-black">
           Quality Clothes
@@ -183,6 +183,11 @@ export default function Home({
               src="/dc-distressed-bg-1.jpg"
               layout="fill"
               className="rounded-full"
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                img.src.indexOf("data:image/gif;base64") < 0 &&
+                  incrementLoadedImages("rounded");
+              }}
             />
           </div>
           <Logo width="256px" height="256px" />
@@ -207,16 +212,28 @@ export default function Home({
           }}
         >
           <div className="w-full h-full absolute opacity-30 pointer-events-none z-10">
-            <Image src="/dc-distressed-bg-1.jpg" layout="fill" />
+            <Image
+              src="/dc-distressed-bg-1.jpg"
+              layout="fill"
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                img.src.indexOf("data:image/gif;base64") < 0 &&
+                  incrementLoadedImages("distressed");
+              }}
+            />
           </div>
           <Image
             src="/rooftop-andrew-brushed.jpg"
             width="1920px"
             height="1080px"
-            priority
             objectFit="cover"
             objectPosition="top"
             layout="intrinsic"
+            onLoad={(e) => {
+              const img = e.target as HTMLImageElement;
+              img.src.indexOf("data:image/gif;base64") < 0 &&
+                incrementLoadedImages("main");
+            }}
           />
         </div>
         <div
@@ -283,6 +300,11 @@ export default function Home({
             width="1920px"
             layout="responsive"
             className="absolute"
+            onLoad={(e) => {
+              const img = e.target as HTMLImageElement;
+              // img.src.indexOf("data:image/gif;base64") < 0 &&
+              incrementLoadedImages("main");
+            }}
           />
         </div>
         <div className={"relative m-auto"}>

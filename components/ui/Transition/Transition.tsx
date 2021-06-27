@@ -1,146 +1,135 @@
 import {
   TransitionGroup,
-  CSSTransition as ReactTransition,
+  Transition as ReactTransition,
 } from "react-transition-group";
-import Image from "next/image";
 
 import { ReactChild, useEffect, useState } from "react";
 
 type TransitionKind<RC> = {
   children: RC;
   location: string;
+  loadedImages: number[];
 };
 
-let TIMEOUT: number = 200;
+let TIMEOUT: number = 2000;
+
+const defaultTransitionStyle = {
+  transition: `transform 200ms ease-in-out`,
+};
 
 const getTransitionStyles = {
-  entering: {
-    position: `absolute`,
-    opacity: 0,
-    transform: `translateX(50px)`,
-  },
   entered: {
-    transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
-    opacity: 1,
-    transform: `translateX(0px)`,
-    animation: "blink .3s linear 2",
-  },
-  exiting: {
-    transition: `opacity ${TIMEOUT}ms ease-in-out, transform ${TIMEOUT}ms ease-in-out`,
-    opacity: 0,
     transform: `translateX(-50px)`,
   },
+  exiting: {
+    transform: `translateX(50px)`,
+  },
+  exited: { transform: `translateX(50px)` },
+};
+
+const defaultOverlayStyle = {
+  position: `absolute`,
+  backgroundColor: "#edbbd8",
+  transition: `max-height 0.2s ease-in-out`,
+  zIndex: 100,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  overflow: "hidden",
+  height: "100vh",
+  maxHeight: "100vh",
+  width: "100%",
 };
 
 const overlayStyle = {
-  entering: {
-    position: `relative`,
-    // backgroundColor: "#edbbd8",
-    opacity: 0,
-  },
   entered: {
-    position: `relative`,
-    transition: `opacity 2s ease-in`,
-    opacity: 1,
+    height: "100vh",
   },
   exiting: {
-    position: `relative`,
+    maxHeight: "0px",
+  },
+  exited: {
+    maxHeight: "0px",
   },
 };
-const headerStyle = {
-  entering: {
-    opacity: 1,
-    position: "relative",
-  },
+
+const defaultImgStyle = {
+  transition: `scale 0.2s ease-in-out`,
+  height: "300px",
+  width: "300px",
+  scale: "1",
+};
+const imgStyle = {
   entered: {
-    opacity: 0,
-    position: "relative",
-    transition: `opacity 2s ease-out`,
+    scale: "1",
   },
   exiting: {
-    position: `relative`,
+    scale: "0.1",
+  },
+  exited: {
+    scale: "0.1",
   },
 };
-const blurStyle = {
-  entering: {
-    position: `absolute`,
-    backgroundColor: "#edbbd8",
-    width: "100%",
-    height: "100%",
-    filter: "blur(0)",
-  },
-  entered: {
-    position: `absolute`,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#edbbd8",
-    transition: `filter 0.5s ease-out`,
-    filter: "blur(2rem)",
-  },
-  exiting: {
-    position: `absolute`,
-    width: "100%",
-    height: "100%",
-    transition: `background-color 0.5s ease-in-out`,
-    backgroundColor: "#edbbd8",
-  },
-};
+
 const Transition: React.FC<TransitionKind<ReactChild>> = ({
   children,
   location,
+  loadedImages,
 }) => {
-  const [loading, setLoading] = useState(true);
+  const home = location === "/";
+  let homeHidden = true;
+  const [minTimePassed, setMinTimePassed] = useState(false);
+
   useEffect(() => {
-    const timeoutAmt = 4000;
-    setTimeout(() => setLoading(false), timeoutAmt);
-  }, []);
+    homeHidden = true;
+    !home && setMinTimePassed(false);
+  }, [location]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      home && setMinTimePassed(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [location]);
+
+  if (home && loadedImages.length >= 3 && minTimePassed) homeHidden = false;
 
   return (
-    <TransitionGroup
-      style={{ position: "relative", height: "100%", width: "100%" }}
+    <ReactTransition
+      key={location}
+      in={home ? homeHidden : false}
+      timeout={TIMEOUT}
     >
-      <ReactTransition key={location} timeout={TIMEOUT}>
-        {(status) => {
-          return location === "/" ? (
-            //home
-            <>
-              {loading ? (
-                <div
-                  // style={{ ...blurStyle[status] }}
-                  className="textured flex justify-center items-center min-h-screen bg-violet"
-                >
-                  <div style={{ height: "300px" }}>
-                    <Image
-                      width="300px"
-                      height="300px"
-                      src="/globe-transparent.png"
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div
-                  style={{ ...overlayStyle[status] }}
-                  className="textured bg-violet"
-                >
-                  {children}
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              <div
-                //everything else
-                style={{
-                  ...getTransitionStyles[status],
-                }}
-              >
-                {children}
-              </div>
-            </>
-          );
-        }}
-      </ReactTransition>
-    </TransitionGroup>
+      {(status) => {
+        return home ? (
+          //home
+          <>
+            <div
+              style={{ ...defaultOverlayStyle, ...overlayStyle[status] }}
+              className="textured bg-violet"
+            >
+              <img
+                style={{ ...defaultImgStyle, ...imgStyle[status] }}
+                src="/globe-transparent.png"
+              />
+            </div>
+            <div className="textured bg-violet">{children}</div>
+          </>
+        ) : (
+          <>
+            <div
+              //everything else
+              style={{
+                ...defaultTransitionStyle,
+                ...getTransitionStyles[status],
+              }}
+            >
+              {children}
+            </div>
+          </>
+        );
+      }}
+    </ReactTransition>
   );
 };
 export default Transition;
