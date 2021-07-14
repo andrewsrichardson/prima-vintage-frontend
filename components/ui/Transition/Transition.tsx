@@ -19,12 +19,12 @@ const defaultTransitionStyle = {
 
 const getTransitionStyles = {
   entered: {
-    transform: `translateX(-50px)`,
+    // transform: `translateX(-50px)`,
   },
   exiting: {
-    transform: `translateX(50px)`,
+    // transform: `translateX(50px)`,
   },
-  exited: { transform: `translateX(50px)` },
+  // exited: { transform: `translateX(50px)` },
 };
 
 const defaultOverlayStyle = {

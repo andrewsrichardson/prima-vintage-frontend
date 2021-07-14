@@ -131,20 +131,20 @@ export default function Home({
         <h2 className="uppercase whitespace-nowrap text-black">
           Quality Clothes
         </h2>
-        <div className="max-w-xs max-h-xs">
-          <Logo height="36px" width="36px" />
+        <div className="max-w-xs max-h-xs mt-1">
+          <Logo height="32px" width="32px" />
         </div>
         <h2 className="uppercase whitespace-nowrap text-black">
           Free Delivery over £50
         </h2>
-        <div className="max-w-xs max-h-xs">
-          <Logo height="36px" width="36px" />
+        <div className="max-w-xs max-h-xs mt-1">
+          <Logo height="32px" width="32px" />
         </div>
         <h2 className="uppercase whitespace-nowrap text-black">
           Sustainably Sourced
         </h2>
         <div className="max-w-xs max-h-xs mt-1">
-          <Logo height="36px" width="36px" />
+          <Logo height="32px" width="32px" />
         </div>
       </Marquee>
       <div
@@ -302,7 +302,6 @@ export default function Home({
             className="absolute"
             onLoad={(e) => {
               const img = e.target as HTMLImageElement;
-              // img.src.indexOf("data:image/gif;base64") < 0 &&
               incrementLoadedImages("main");
             }}
           />

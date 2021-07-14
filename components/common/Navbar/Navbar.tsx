@@ -30,7 +30,7 @@ const Navbar: FC = () => {
                   <a className={s.link}>SALE</a>
                 </Link>
               </div>
-              <div className="hover-link hidden md:inline-block">
+              <div className="hover-link hidden md:inline-block bg-gray-100">
                 <Link href="/search/prima-collection">
                   <a className={s.link}>PRIMA COLLECTION</a>
                 </Link>

@@ -24,7 +24,7 @@ const Marquee: FC<Props> = ({
   );
 
   const style = variant === "primary" ? "" : "checked bg-violet";
-  const height = variant === "primary" ? 40 : null;
+  const height = variant === "primary" ? 38 : null;
 
   return (
     <div
@@ -35,7 +35,7 @@ const Marquee: FC<Props> = ({
           variant === "primary" ? "4px solid var(--accents-7)" : "0px",
       }}
     >
-      <Ticker height={height} offset={40}>
+      <Ticker>
         {() => (
           <div
             className={s.container}

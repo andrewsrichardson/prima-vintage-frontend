@@ -34,6 +34,9 @@ const ProductCard: FC<Props> = ({
               <span className="bg-black text-white inline-block p-3 text-xl break-words">
                 {product.name}
               </span>
+              <span className="bg-black text-white inline-block p-3 text-xl break-words">
+                {product.price.value}
+              </span>
             </div>
             {product?.images && (
               <Image
@@ -42,7 +45,8 @@ const ProductCard: FC<Props> = ({
                 alt={product.name || "Product Image"}
                 height={320}
                 width={320}
-                layout="fixed"
+                layout="intrinsic"
+                objectFit="cover"
                 {...imgProps}
               />
             )}
@@ -50,7 +54,6 @@ const ProductCard: FC<Props> = ({
         ) : (
           <>
             <div className={s.squareBg} />
-
             <div className={s.imageContainer}>
               {product?.images && (
                 <Image
@@ -66,17 +69,20 @@ const ProductCard: FC<Props> = ({
                   height={816}
                   width={540}
                   quality="60"
-                  layout="responsive"
-                  objectFit="contain"
+                  layout="intrinsic"
+                  objectFit="cover"
                   {...imgProps}
                 />
               )}
             </div>
             <div className="flex flex-row justify-between box-border w-full z-20 relative">
-              <div className="relative max-w-full">
+              <div className="relative w-full flex justify-between">
                 <h3 className={s.productTitle}>
                   <span>{product.name}</span>
                 </h3>
+                <p className={s.productTitle} style={{ maxWidth: "40px" }}>
+                  {"£" + product.price.value}
+                </p>
               </div>
               {process.env.COMMERCE_WISHLIST_ENABLED && (
                 <div>
