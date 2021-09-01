@@ -5,6 +5,7 @@ pageInfo {
 }
 edges {
   node {
+    availableForSale
     id
     title
     vendor

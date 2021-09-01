@@ -265,15 +265,19 @@ const ProductView: FC<Props> = ({ product }) => {
                   </div>
                 )}
               </section>
-              <Button
-                aria-label="Add to Cart"
-                type="button"
-                className={s.button}
-                onClick={addToCart}
-                loading={loading}
-              >
-                Add to Cart
-              </Button>
+              {product.availableForSale ? (
+                <Button
+                  aria-label="Add to Cart"
+                  type="button"
+                  className={s.button}
+                  onClick={addToCart}
+                  loading={loading}
+                >
+                  Add to Cart
+                </Button>
+              ) : (
+                <span className="pt-10 pb-10 text-xl">Sold Out</span>
+              )}
             </div>
             <Accordion panels={panels} />
             {/* <div>

@@ -1,6 +1,7 @@
 const getProductQuery = /* GraphQL */ `
   query getProductBySlug($slug: String!) {
     productByHandle(handle: $slug) {
+      availableForSale
       id
       handle
       title

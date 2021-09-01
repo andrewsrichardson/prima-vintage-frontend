@@ -35,7 +35,7 @@ const ProductCard: FC<Props> = ({
                 {product.name}
               </span>
               <span className="bg-black text-white inline-block p-3 text-xl break-words">
-                {product.price.value}
+                {product.availableForSale ? product.price.value : "Sold Out"}
               </span>
             </div>
             {product?.images && (
